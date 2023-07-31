@@ -46,7 +46,7 @@ function TaskListItem( {task}: TaskListItemProps) {
 
 export default function TaskList( { tasks }: Props ) {
     return (
-        <li className='divide-gray-dark'>
+        <li className='divide-last-gray-dark'>
             {tasks.map( task => <TaskListItem task={task} /> )}
         </li>
     )

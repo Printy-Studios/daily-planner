@@ -334,6 +334,10 @@ code {
   border-bottom: 1px solid var(--gray-medium);
 }
 
+.divide-last-gray-dark > * {
+  border-bottom: 1px solid var(--gray-medium);
+}
+
 /* Flex */
 
 .flex-grow {
