@@ -54,7 +54,7 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
             )}
             content={(
                 <div
-                    className='bg-gray-light w-full p-xs'
+                    className='bg-gray-light w-full'
                 >
                     <TaskList tasks={tasks}/>
                 </div>
