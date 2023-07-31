@@ -10,8 +10,19 @@ type Props = {
 
 function TaskListItem( {task}: TaskListItemProps) {
     return (
-        <div>
-            {task.title}
+        <div
+            className='flex flex-row items-center gap-xs p-l-xs'
+        >
+            <input type='checkbox' />
+            <span
+                className='border-box'
+                style={{
+                    paddingBottom: '3px'
+                }}
+            >
+                {task.title}
+            </span>
+            
         </div>
     )
 }
