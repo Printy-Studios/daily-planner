@@ -1,15 +1,16 @@
 import { ErrorMessage } from 'formik'
-import { PropsWithChildren } from 'react'
+import { HTMLAttributes, PropsWithChildren } from 'react'
 
-type Props = {
+type Props = HTMLAttributes<HTMLDivElement> & {
     label?: string,
     name?: string
+    direction?: 'flex-row' | 'flex-col'
 }
 
-export default function InputBase({ children, label, name }: PropsWithChildren<Props>) {
+export default function InputBase({ className, children, label, name, direction = 'flex-col' }: PropsWithChildren<Props>) {
     return(
         <div
-            className='flex flex-col'
+            className={`flex ${direction === 'flex-row' ? direction + ' justify-between' : direction} ${className || ''}`}
         >
             {label ?
                 <label

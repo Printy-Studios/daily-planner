@@ -46,8 +46,8 @@ function TaskListItem( {task}: TaskListItemProps) {
 
 export default function TaskList( { tasks }: Props ) {
     return (
-        <li className='divide-last-gray-dark'>
-            {tasks.map( task => <TaskListItem task={task} /> )}
-        </li>
+        <ul className='list-reset divide-last-gray-dark'>
+            {tasks.map( task => <TaskListItem key={task.id} task={task} /> )}
+        </ul>
     )
 }
