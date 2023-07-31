@@ -19,6 +19,26 @@ export default function useTasks(){
                 type: 'create',
                 data: task
             }),
+        deleteTask: (task_id: ID) =>
+            dispatchTasks({
+                type: 'delete',
+                data: {
+                    id: task_id
+                }
+            }),
+        updateTask: (task: Omit<Partial<Task>, 'id'> & { id: ID }) =>
+            dispatchTasks({
+                type: 'update',
+                data: task
+            }),
+        getTaskById: (task_id: ID) => {
+            const task = tasks.find(task => task.id === task_id)
+            if (!task) {
+                throw new Error('Could not find task with id ' + task_id)
+            } else {
+                return task
+            }
+        },
         getTasksByGroup: (group_id: ID) => 
             tasks.filter(task => task.group_id === group_id)
     }

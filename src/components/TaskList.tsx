@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Task, TaskType } from 'types/Task'
 
 type TaskListItemProps = {
@@ -9,9 +10,19 @@ type Props = {
 }
 
 function TaskListItem( {task}: TaskListItemProps) {
+
+    const navigate = useNavigate()
+
+    const handleTaskClick = () => {
+        navigate('/task-edit', { state: {id: task.id} } )
+    }
+
     return (
-        <div
-            className='flex flex-row flex-wrap items-center gap-x-xs p-xxs p-l-s'
+        <div 
+            onClick={handleTaskClick}
+            className={
+                `flex flex-row flex-wrap items-center gap-x-xs p-xxs p-l-s
+            `}
         >
             <div className='min-w-xs flex items-center justify-center'>
                 {task.type === TaskType.TASK ?

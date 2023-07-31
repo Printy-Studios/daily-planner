@@ -1,11 +1,23 @@
+//Types
 import { Task } from 'types/Task'
+import { ID } from 'types/UtilTypes'
 
 type CreateAction = {
     type: 'create',
     data: Omit<Task, 'id'>
 }
 
-type Action = CreateAction
+type UpdateAction = {
+    type: 'update',
+    data: Omit<Partial<Task>, 'id'> & { id: ID }
+}
+
+type DeleteAction = {
+    type: 'delete',
+    data: Omit<Partial<Task>, 'id'> & { id: ID }
+}
+
+type Action = CreateAction | DeleteAction | UpdateAction
 
 let max_id = 50
 
@@ -21,6 +33,30 @@ export default function taskReducer(tasks: Task[], action: Action) {
             })
 
             return new_tasks
+        }
+        case 'update': {
+            const new_tasks: Task[] = [...tasks];
+
+            const index = new_tasks.findIndex(task => 
+                task.id === action.data.id
+            )
+
+            const updated_task: any = new_tasks[index]
+
+            for (const key in action.data) {
+                const keyTyped = key as keyof Task
+                if (keyTyped === 'id') {
+                    continue
+                }
+                updated_task[keyTyped] = action.data[keyTyped]
+            }
+
+            new_tasks[index] = updated_task
+
+            return new_tasks;
+        }
+        case 'delete': {
+            return tasks.filter(task => task.id !== action.data.id)
         }
     }
 }
