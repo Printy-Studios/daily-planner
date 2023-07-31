@@ -41,26 +41,26 @@ const sample_tasks:Task[] = [
     {
         id: 0,
         type: TaskType.TASK,
-        title: 'Task #1',
+        name: 'Task #1',
         group_id: 0
     },
     {
         id: 1,
         type: TaskType.NOTE,
-        title: 'Note #1',
+        name: 'Note #1',
         group_id: 0,
         description: 'Some description for note'
     },
     {
         id: 2,
         type: TaskType.TASK,
-        title: 'Task #3',
+        name: 'Task #3',
         group_id: 1
     },
     {
         id: 3,
         type: TaskType.TASK,
-        title: 'Task #4',
+        name: 'Task #4',
         group_id: 0
     }
 ]

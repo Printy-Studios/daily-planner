@@ -8,43 +8,69 @@ import TextInput from 'components/forms/TextInput'
 import Page from 'components/layout/Page'
 import TextArea from 'components/forms/TextArea'
 import BackButton from 'components/buttons/BackButton'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import DeleteButton from 'components/buttons/DeleteButton';
 import Select from 'components/forms/Select';
+import useTasks from 'functions/useTasks';
+import { Task, TaskType } from 'types/Task';
 
 type FormValues = {
     name: string
     description?: string
+    type: 'NOTE' | 'TASK'
 }
 
 const FormSchema: Yup.ObjectSchema<FormValues> = Yup.object().shape({
     name: Yup.string().required('Name is required').max(64, 'Maximum 64 characters'),
-    description: Yup.string().max(256, 'Maximum 256 characters')
+    description: Yup.string().max(256, 'Maximum 256 characters'),
+    type: Yup.string().required().oneOf(Object.values(TaskType))
 })
 
 export default function TaskEditPage() {
 
+    const { createTask, getTaskById, updateTask } = useTasks()
     const { state } = useLocation()
+    const navigate = useNavigate()
     
     const initialValues: FormValues = useMemo(() => {
         
-        // if (state?.group_id != null && state?.group_id !== undefined) {
-        //     //const task_group: TaskGroup = getTaskGroupById(state.id)
+        if (state?.id != null && state?.id !== undefined) {
+            const task: Task = getTaskById(state.id)
 
-        //     return {
-        //         name: task_group.name,
-        //         time: timeToStr(task_group.time)
-        //     }
-        // }
+            return {
+                name: task.name,
+                description: task.description,
+                type: task.type
+            }
+        }
 
         return {
             name: '',
-            description: ''
+            description: '',
+            type: 'TASK'
         }
     }, [])
 
     const handleSubmit = (values: FormValues) => {
-        // if()
+        console.log(state)
+        if (state && state.id !== undefined && state.id !== null) {
+            console.log('updating task')
+            updateTask({
+                id: state.id,
+                name: values.name,
+                description: values.description,
+                type: TaskType[values.type]
+            })
+        } else {
+            createTask({
+                name: values.name,
+                description: values.description,
+                group_id: state.group_id,
+                type: TaskType[values.type]
+            })
+        }
+
+        navigate('/')
     }
 
     const handleDeleteButtonClick = () => {
@@ -80,11 +106,11 @@ export default function TaskEditPage() {
                         options={[
                             {
                                 label: 'Task',
-                                value: 'task'
+                                value: TaskType.TASK
                             },
                             {
                                 label: 'Note',
-                                value: 'note'
+                                value: TaskType.NOTE
                             }
                         ]}
                     />
