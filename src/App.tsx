@@ -9,7 +9,7 @@ import {
 
 //State
 import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupContext';
-import { TasksContext } from 'state/TasksContext';
+import { TasksContext, TasksDispatchContext } from 'state/TasksContext';
 import taskGroupReducer from 'state/taskGroupReducer';
 
 //Pages
@@ -19,6 +19,7 @@ import TaskEditPage from 'pages/TaskEditPage';
 
 //Const
 import sample from 'const/sample_data';
+import taskReducer from 'state/taskReducer';
 
 const router = createBrowserRouter([
   {
@@ -38,16 +39,18 @@ const router = createBrowserRouter([
 function App() {
 
   const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, sample.task_groups)
-  const [tasks, setTasks] = useState(sample.tasks)
+  const [tasks, dispatchTasks] = useReducer(taskReducer, sample.tasks)
 
   return (
     <div className='h-full'>
       <TasksContext.Provider value={tasks}>
-        <TaskGroupContext.Provider value={taskGroups} >
-          <TaskGroupDispatchContext.Provider value={dispatchTaskGroups}>
-            <RouterProvider router={router} />
-          </TaskGroupDispatchContext.Provider>
-        </TaskGroupContext.Provider>
+        <TasksDispatchContext.Provider value={dispatchTasks}>
+          <TaskGroupContext.Provider value={taskGroups} >
+            <TaskGroupDispatchContext.Provider value={dispatchTaskGroups}>
+              <RouterProvider router={router} />
+            </TaskGroupDispatchContext.Provider>
+          </TaskGroupContext.Provider>
+        </TasksDispatchContext.Provider>
       </TasksContext.Provider>
     </div>
   );

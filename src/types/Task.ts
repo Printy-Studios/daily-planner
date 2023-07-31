@@ -2,14 +2,14 @@
 import { ID } from './UtilTypes'
 
 enum TaskType {
-    TASK = 'task',
+    TASK = 'TASK',
     NOTE = 'NOTE'
 }
 
 type Task = {
     id: number
     type: TaskType
-    title: string
+    name: string
     group_id: ID,
     description?: string
 }

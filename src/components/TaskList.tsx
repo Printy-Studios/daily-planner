@@ -27,7 +27,7 @@ function TaskListItem( {task}: TaskListItemProps) {
                     paddingBottom: '3px'
                 }}
             >
-                {task.title}
+                {task.name}
             </span>
             
             {task.description ? 
