@@ -1,24 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useReducer, useState } from 'react';
+
+import { 
+  RouterProvider, 
+  createBrowserRouter 
+} from 'react-router-dom'
+
+//Types
+
+//State
+import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupContext';
+import taskGroupReducer from 'state/taskGroupReducer';
+
+//Pages
+import SchedulePage from 'pages/SchedulePage';
+import TaskGroupEditPage from 'pages/TaskGroupEditPage';
+import sample from 'const/sample_data';
+import { TasksContext } from 'state/TasksContext';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <SchedulePage />
+  },
+  {
+    path: '/task-group-edit',
+    element: <TaskGroupEditPage />
+  }
+])
 
 function App() {
+
+  const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, sample.task_groups)
+  const [tasks, setTasks] = useState(sample.tasks)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='h-full'>
+      <TasksContext.Provider value={tasks}>
+        <TaskGroupContext.Provider value={taskGroups} >
+          <TaskGroupDispatchContext.Provider value={dispatchTaskGroups}>
+            <RouterProvider router={router} />
+          </TaskGroupDispatchContext.Provider>
+        </TaskGroupContext.Provider>
+      </TasksContext.Provider>
     </div>
   );
 }

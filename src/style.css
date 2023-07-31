@@ -1,0 +1,354 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*--- Colors ---*/
+
+:root {
+  /* Gray */
+  --gray-light: #d0d0d0;
+  --gray-medium: #b9b9b9;
+  --gray-dark: #949494;
+
+  /* Warn */
+  --warn-medium: #d60202;
+}
+
+/* Resets */
+
+.list-reset {
+  list-style-type: none;
+  /* padding-left: 0px; */
+  margin: 0px;
+  padding: 0px
+}
+
+.a-reset {
+  color: black;
+  text-decoration: none;
+}
+
+.button-reset {
+  border: none;
+  background: none;
+  padding: 0px;
+  display: flex;
+  user-select: none;
+}
+
+/* Font size */
+
+.text-xs {
+  font-size: 12px
+}
+
+.text-s {
+  font-size: 14px;
+}
+
+.text-base {
+  font-size: 16px;
+}
+
+.text-lg {
+  font-size: 24px;
+}
+
+/*--- Font weight ---*/
+
+.font-bold {
+  font-weight: 700;
+}
+
+/*--- Font color ---*/
+
+/* White */
+
+.active\:text-white:active {
+  color: #ffffff
+}
+
+/* Gray */
+
+.text-gray-medium {
+  color: var(--gray-medium);
+}
+
+.text-gray-dark {
+  color: var(--gray-dark);
+}
+
+/* Warn */
+
+.text-warn-medium {
+  color: var(--warn-medium)
+}
+
+/* Background */
+
+.bg-gray-medium {
+  background-color: var(--gray-medium);
+}
+
+.bg-gray-light {
+  background-color: var(--gray-light);
+}
+
+.active\:bg-warn-medium:active {
+  background-color: var(--warn-medium);
+}
+
+/* General */
+
+.flex {
+  display: flex;
+}
+
+/* Margin */
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+/* Padding */
+
+.p-xs,
+.p-s,
+.p-m,
+.p-l,
+.p-y-xs,
+.p-y-s {
+  box-sizing: border-box;
+}
+
+.p-xs {
+  padding: 8px;
+}
+
+.p-s {
+  padding: 16px;
+}
+
+.p-m {
+  padding: 32px;
+}
+
+.p-l {
+  padding: 64px;
+}
+
+
+
+
+
+
+
+.p-y-xs {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.p-y-s {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* Width */
+
+.min-w-s {
+  min-width: 32px;
+}
+
+.min-w-m {
+  min-width: 64px;
+}
+
+.max-w-s {
+  max-width: 32px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w-xs {
+  width: 16px;
+}
+
+.w-xs-1\/2 {
+  width: 24px;
+}
+
+.w-s {
+   width: 32px;
+}
+
+/* Height */
+
+.h-screen {
+  height: 100vh;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-fit {
+  height: fit-content;
+}
+
+.h-s {
+  height: 32px;
+}
+
+.h-xs-1\/2 {
+  height: 24px;
+}
+
+/* Alignment */
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* Border */
+
+.border-gray-medium {
+  border: 1px solid var(--gray-medium)
+}
+
+.border-bottom-gray-dark {
+  border-bottom: 1px solid var(--gray-dark);
+}
+
+/* Outline */
+
+.focus\:border-black:focus {
+  outline: none;
+  border: 1px solid black;
+  /* border: 1px solid transparent; */
+}
+
+/* Flex */
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+/* Flex direction */
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+/* Gap */
+
+.gap-s {
+  gap: 8px;
+}
+
+.gap-m {
+  gap: 16px;
+}
+
+/* Position */
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+/*--- Buttons ---*/
+
+.button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.button-outline {
+  background: transparent;
+  border-width: 1;
+  border-style: solid;
+}
+
+.button-outline-warn-medium {
+  background-color: transparent;
+  border: 1px solid var(--warn-medium);
+}
+
+/* Transition */
+
+.transition-all-xs-ease-out {
+  transition: all 0.08s ease-out;
+}
+
+/* Misc */
+
+.user-select-none {
+  user-select: none;
+}
+
+/* Custom */
+
+.icon-button-circle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  border-radius: 100px;
+  background: gray;
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+
+.icon-button:hover .icon-button-circle {
+  opacity: 0.2;
+}
+
+.icon-button:active .icon-button-circle {
+  opacity: 0.5;
+}
