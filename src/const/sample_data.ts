@@ -46,9 +46,10 @@ const sample_tasks:Task[] = [
     },
     {
         id: 1,
-        type: TaskType.TASK,
-        title: 'Task #2',
-        group_id: 0
+        type: TaskType.NOTE,
+        title: 'Note #1',
+        group_id: 0,
+        description: 'Some description for note'
     },
     {
         id: 2,
