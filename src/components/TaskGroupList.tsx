@@ -1,11 +1,18 @@
+//Core
+import { useNavigate } from 'react-router-dom'
+import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
 
+//Types
 import TaskGroup from 'types/TaskGroup'
+
+//Components
 import Accordion from './Accordion'
 import IconButton from './buttons/IconButton'
-import { PencilSquareIcon } from '@heroicons/react/24/outline'
-import { useNavigate } from 'react-router-dom'
 import TaskList from './TaskList'
+
+//Functions
 import useTasks from 'functions/useTasks'
+import { ID } from 'types/UtilTypes'
 
 type Props = {
     taskGroups: TaskGroup[]
@@ -23,8 +30,12 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
 
     const navigate = useNavigate()
 
-    const handleEditClick = (task_group_id: number) => {
-        navigate('task-group-edit', { state: { id: task_group_id } } )
+    const handleEditClick = (task_group_id: ID) => {
+        navigate('task-group-edit', { state: { id: task_group_id } })
+    }
+
+    const handleTaskAddClick = () => {
+        navigate('task-edit', { state: { group_id: taskGroup.id } })
     }
 
     return (
@@ -54,9 +65,19 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
             )}
             content={(
                 <div
-                    className='bg-gray-light w-full p-xs'
+                    className='bg-gray-light w-full'
                 >
                     <TaskList tasks={tasks}/>
+                    <div className='p-s'>
+                        <IconButton
+                            onClick={handleTaskAddClick}
+                            className='ml-auto'
+                            icon={
+                                <PlusIcon className='w-xs h-xs'/>
+                            }
+                        />
+                    </div>
+                    
                 </div>
             )}
         />

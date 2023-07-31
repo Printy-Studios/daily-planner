@@ -1,5 +1,5 @@
+//Core
 import { useReducer, useState } from 'react';
-
 import { 
   RouterProvider, 
   createBrowserRouter 
@@ -9,13 +9,16 @@ import {
 
 //State
 import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupContext';
+import { TasksContext } from 'state/TasksContext';
 import taskGroupReducer from 'state/taskGroupReducer';
 
 //Pages
 import SchedulePage from 'pages/SchedulePage';
 import TaskGroupEditPage from 'pages/TaskGroupEditPage';
+import TaskEditPage from 'pages/TaskEditPage';
+
+//Const
 import sample from 'const/sample_data';
-import { TasksContext } from 'state/TasksContext';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: '/task-group-edit',
     element: <TaskGroupEditPage />
+  },
+  {
+    path: '/task-edit',
+    element: <TaskEditPage />
   }
 ])
 
