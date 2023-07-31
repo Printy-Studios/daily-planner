@@ -224,6 +224,10 @@ code {
   min-width: 64px;
 }
 
+.max-w-full {
+  max-width: 100%;
+}
+
 .max-w-s {
   max-width: 32px;
 }

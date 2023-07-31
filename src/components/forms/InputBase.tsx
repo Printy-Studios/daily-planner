@@ -8,7 +8,9 @@ type Props = {
 
 export default function InputBase({ children, label, name }: PropsWithChildren<Props>) {
     return(
-        <div>
+        <div
+            className='flex flex-col'
+        >
             {label ?
                 <label
                     htmlFor={name}
