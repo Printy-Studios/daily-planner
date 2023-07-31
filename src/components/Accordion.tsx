@@ -17,10 +17,10 @@ export default function Accordion( {header, content}: Props ) {
     }
     
     return (
-        <div
-            onClick={handleHeaderClick}
-        >
-            <div>
+        <div>
+            <div
+                onClick={handleHeaderClick}
+            >
                 {header}
             </div>
             <div
