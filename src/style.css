@@ -56,19 +56,23 @@ code {
 /* Font size */
 
 .text-xs {
-  font-size: 12px
+  font-size: max(0.8rem, 12px);
+  /* font-size: 12px */
 }
 
 .text-s {
-  font-size: 14px;
+  font-size: max(0.9rem, 14px);
+  /* font-size: 14px; */
 }
 
 .text-base {
-  font-size: 16px;
+  font-size: 1rem;
+  /* font-size: 16px; */
 }
 
 .text-lg {
-  font-size: 24px;
+  font-size: 1.2rem;
+  /* font-size: 24px; */
 }
 
 /*--- Font weight ---*/

@@ -1,5 +1,5 @@
 //Core
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { 
   RouterProvider, 
   createBrowserRouter 
@@ -63,6 +63,17 @@ function App() {
     console.log('setting new settings to: ', new_settings)
     setSettings(new_settings)
   }
+
+  useEffect(() => {
+    const font_size_mappings = {
+      S: '14px',
+      M: '16px',
+      L: '18px',
+      XL: '20px'
+    }
+
+    document.documentElement.style.fontSize = font_size_mappings[settings.font_size]
+  }, [settings.font_size])
 
   return (
     <div className='h-full'>
