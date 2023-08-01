@@ -5,7 +5,6 @@ import { Cog6ToothIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom';
 
 //Types
-import TaskGroup from 'types/TaskGroup';
 
 //Components
 import TaskGroupList from 'components/TaskGroupList';
