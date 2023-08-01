@@ -28,7 +28,7 @@ const FormSchema: Yup.ObjectSchema<FormValues> = Yup.object().shape({
 
 export default function TaskEditPage() {
 
-    const { createTask, getTaskById, updateTask } = useTasks()
+    const { createTask, getTaskById, updateTask, deleteTask } = useTasks()
     const { state } = useLocation()
     const navigate = useNavigate()
     
@@ -74,7 +74,8 @@ export default function TaskEditPage() {
     }
 
     const handleDeleteButtonClick = () => {
-        
+        deleteTask(state.id)
+        navigate('/')
     }
 
     return (
