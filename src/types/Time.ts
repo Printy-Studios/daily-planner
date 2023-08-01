@@ -1,6 +1,7 @@
+//Time
 type Time = {
-    hrs: number,
-    mins: number
+    hrs: number, //Hours
+    mins: number //Minutes
 }
 
 export default Time;

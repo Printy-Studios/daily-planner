@@ -1,10 +1,10 @@
 //Core
 import { useContext } from 'react';
-import { TaskGroupContext } from 'state/TaskGroupContext';
 import { Cog6ToothIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom';
 
-//Types
+//State
+import { TaskGroupContext } from 'state/TaskGroupContext';
 
 //Components
 import TaskGroupList from 'components/TaskGroupList';
@@ -12,14 +12,15 @@ import TaskGroupLink from 'components/buttons/AddTaskGroupButton';
 import Page from 'components/layout/Page';
 import IconButton from 'components/buttons/IconButton';
 
-
-
 export default function SchedulePage(){
 
+    //Hooks
     const navigate = useNavigate()
 
+    //State
     const taskGroups = useContext(TaskGroupContext)
 
+    //Handler for 'Settings' button. Right now just navigates to /settings
     const handleSettingsClick = () => navigate('/settings')
 
     return (
@@ -33,9 +34,11 @@ export default function SchedulePage(){
                 />
             }
         >
+            {/* Task Group List */}
             <TaskGroupList
                 taskGroups={taskGroups}
             />
+            {/* 'Add Task group' button */}
             <TaskGroupLink
                 text='+'
             />

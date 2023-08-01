@@ -1,7 +1,12 @@
+//Types
 import { Task, TaskType } from 'types/Task'
 import TaskGroup from 'types/TaskGroup'
 
+/*
+    Sample data used for testing/debug.
+*/
 
+//Task groups.
 const sample_task_groups: TaskGroup[] = [
     {
         id: 0,
@@ -37,6 +42,7 @@ const sample_task_groups: TaskGroup[] = [
     }
 ]
 
+//Tasks.
 const sample_tasks:Task[] = [
     {
         id: 0,

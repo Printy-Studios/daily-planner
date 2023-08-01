@@ -28,12 +28,19 @@ const FormSchema: Yup.ObjectSchema<FormValues> = Yup.object().shape({
 
 export default function TaskEditPage() {
 
+    //Hooks
     const { createTask, getTaskById, updateTask, deleteTask } = useTasks()
+
+    //Accepted params: id and group_id
     const { state } = useLocation()
+
     const navigate = useNavigate()
     
+    //Initial values of form
     const initialValues: FormValues = useMemo(() => {
         
+        //If ID param found(meaning that the page is in edit mode),
+        //set initial values to the task with the given ID
         if (state?.id != null && state?.id !== undefined) {
             const task: Task = getTaskById(state.id)
 
@@ -43,7 +50,8 @@ export default function TaskEditPage() {
                 type: task.type
             }
         }
-
+        //Otherwise (if the page is in 'new' mode), set default form values
+        //#TODO: Add default values to defaults.ts and use those here
         return {
             name: '',
             description: '',
@@ -51,8 +59,11 @@ export default function TaskEditPage() {
         }
     }, [])
 
+    //Handle submit of form
     const handleSubmit = (values: FormValues) => {
-        //console.log(state)
+
+        //If ID param found(meaning existing task is being modified), run update
+        //function on respective task with the new values
         if (state && state.id !== undefined && state.id !== null) {
             console.log('updating task')
             updateTask({
@@ -61,7 +72,7 @@ export default function TaskEditPage() {
                 description: values.description,
                 type: TaskType[values.type]
             })
-        } else {
+        } else { //Otherwise create new task with provided form values
             createTask({
                 name: values.name,
                 description: values.description,
@@ -69,12 +80,16 @@ export default function TaskEditPage() {
                 type: TaskType[values.type]
             })
         }
-
+        //Finally, navigate back to Schedule page
         navigate('/')
     }
 
+    //Handle 'delete' button click
     const handleDeleteButtonClick = () => {
+        //Delete task that is currently being edited
+        //#TODO maybe add a check for presence of ID param to avoid bugs
         deleteTask(state.id)
+        //After deleting task, navigate back to Schedule page
         navigate('/')
     }
 
@@ -97,10 +112,12 @@ export default function TaskEditPage() {
                     id='task-edit'
                     className='flex flex-col gap-m'
                 >
+                    {/* Task name field */}
                     <TextInput
                         label='Name'
                         name='name'
                     />
+                    {/* Task type field */}
                     <Select
                         label='Type'
                         name='type'
@@ -115,6 +132,7 @@ export default function TaskEditPage() {
                             }
                         ]}
                     />
+                    {/* Task description field */}
                     <TextArea
                         label='Description'
                         name='description'
@@ -122,6 +140,7 @@ export default function TaskEditPage() {
                     />
                 </Form>
             </Formik>
+            {/* If in 'edit' mode, render 'delete' button */}
             {state?.id !== null ? 
                 <DeleteButton 
                     className='mt-auto'
