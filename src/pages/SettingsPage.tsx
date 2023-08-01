@@ -1,6 +1,6 @@
 //Core
 import { useContext, useEffect, useMemo } from 'react'
-import { Formik, Form, useFormikContext, FormikValues } from 'formik'
+import { Formik, Form, useFormikContext } from 'formik'
 
 //Types
 import { FontSize } from 'types/Settings'
@@ -14,7 +14,7 @@ import BackButton from 'components/buttons/BackButton'
 import SettingsContext from 'state/SettingsContext'
 
 //Props
-type Props = {}
+//type Props = {}
 
 function FormAutoSave() {
     const formik = useFormikContext()
@@ -33,7 +33,7 @@ type FormValues = {
 /**
  * Settings page. This is the top level page for the settings
  */
-export default function SettingsPage( {}: Props) {
+export default function SettingsPage() {
 
     const { settings, updateSettings } = useContext(SettingsContext)
 
