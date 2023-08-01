@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 //Components
 import Select from 'components/forms/Select'
 import Page from 'components/layout/Page'
+import BackButton from 'components/buttons/BackButton'
 
 //Props
 type Props = {}
@@ -16,7 +17,11 @@ export default function SettingsPage( {}: Props) {
 
 
     return (
-        <Page>
+        <Page
+            headerLeft={
+                <BackButton />
+            }
+        >
             <Formik
                 initialValues={{}}
                 onSubmit={() => {}}
