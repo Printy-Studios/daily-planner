@@ -52,7 +52,7 @@ export default function TaskEditPage() {
     }, [])
 
     const handleSubmit = (values: FormValues) => {
-        console.log(state)
+        //console.log(state)
         if (state && state.id !== undefined && state.id !== null) {
             console.log('updating task')
             updateTask({
@@ -121,7 +121,7 @@ export default function TaskEditPage() {
                     />
                 </Form>
             </Formik>
-            {state?.id ? 
+            {state?.id !== null ? 
                 <DeleteButton 
                     className='mt-auto'
                     onClick={handleDeleteButtonClick}
