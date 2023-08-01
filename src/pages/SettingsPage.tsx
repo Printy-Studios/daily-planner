@@ -16,16 +16,27 @@ import SettingsContext from 'state/SettingsContext'
 //Props
 //type Props = {}
 
+/**
+ * Basic function for enabling autosave in a Formik form. #TODO Should probably be
+ * extracted to a separate file
+ * 
+ * @returns {null}
+ */
 function FormAutoSave() {
+
+    //Get formik context
     const formik = useFormikContext()
 
+    //Submit form when a form value changes
     useEffect(() => {
         formik.submitForm()
     }, [formik.values])
 
+    //Doesn't render anything
     return null
 }
 
+//Form values type
 type FormValues = {
     font_size: 'S' | 'M' | 'L' | 'XL'
 }
@@ -35,17 +46,19 @@ type FormValues = {
  */
 export default function SettingsPage() {
 
+    //State
     const { settings, updateSettings } = useContext(SettingsContext)
 
+    //Set initial values to setting's values
     const initialValues: FormValues = useMemo(() => {
         return {
             font_size: settings.font_size
         }
     }, [])
 
+    //On form submit(form submits on each input value change)
     const handleSubmit = ( values: FormValues ) => {
-        console.log('values: ', values)
-        console.log('submitting settings')
+        //Update settings with new values
         updateSettings({
             font_size: FontSize[values.font_size]
         })
@@ -62,7 +75,9 @@ export default function SettingsPage() {
                 onSubmit={handleSubmit}
             >
                 <Form>
+                    {/* Component to enable auto-save */}
                     <FormAutoSave />
+                    {/* Font size */}
                     <Select
                         label='Font size'
                         name='font_size'

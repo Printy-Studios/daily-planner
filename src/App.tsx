@@ -25,45 +25,58 @@ import sample from 'const/sample_data';
 import defaults from 'const/defaults';
 import SettingsContext from 'state/SettingsContext';
 
-
+//Router
 const router = createBrowserRouter([
-  {
+  {//Schedule page
     path: '/',
     element: <SchedulePage />
   },
-  {
+  {//Task group edit page
     path: '/task-group-edit',
     element: <TaskGroupEditPage />
   },
-  {
+  {//Task edit page
     path: '/task-edit',
     element: <TaskEditPage />
   },
-  {
+  {//Settings page
     path: '/settings',
     element: <SettingsPage />
   }
 ])
 
+/**
+ * Main app component
+ */
 function App() {
 
+  //State
   const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, sample.task_groups)
   const [tasks, dispatchTasks] = useReducer(taskReducer, sample.tasks)
   const [settings, setSettings] = useState<Settings>(defaults.settings)
 
+  /**
+   * Update settings function. Pass any settings to modify, and only those
+   * settings will be modified in the state
+   * @param {Partial<Settings>} updated_settings Settings to update
+   */
   const updateSettings = (updated_settings: Partial<Settings>) => {
-    console.log('updated settings: ', updated_settings)
     const new_settings = {...settings}
 
+    //Update new settings state with those settings that were provided(but not
+    //those that weren't provided)
     for (const key in updated_settings) {
       const keyTyped = key as keyof Settings
       new_settings[keyTyped] = updated_settings[keyTyped]!
     }
 
-    console.log('setting new settings to: ', new_settings)
     setSettings(new_settings)
   }
 
+  /**
+   * On font_size setting change, update the base REM unit to the corresponding
+   * font size.
+   */
   useEffect(() => {
     const font_size_mappings = {
       S: '14px',
@@ -72,6 +85,7 @@ function App() {
       XL: '20px'
     }
 
+    //Update document root with new base font size
     document.documentElement.style.fontSize = font_size_mappings[settings.font_size]
   }, [settings.font_size])
 

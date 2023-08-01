@@ -2,6 +2,8 @@
 import { Task } from 'types/Task'
 import { ID } from 'types/UtilTypes'
 
+
+//Action types
 type CreateAction = {
     type: 'create',
     data: Omit<Task, 'id'>
@@ -21,6 +23,7 @@ type Action = CreateAction | DeleteAction | UpdateAction
 
 let max_id = 50
 
+//Dispatch function type
 export type TaskDispatch = (action: Action) => void
 
 export default function taskReducer(tasks: Task[], action: Action) {
@@ -43,6 +46,8 @@ export default function taskReducer(tasks: Task[], action: Action) {
 
             const updated_task: any = new_tasks[index]
 
+            //Replace existing group values with the new values( but only the
+            //ones that were provided)
             for (const key in action.data) {
                 const keyTyped = key as keyof Task
                 if (keyTyped === 'id') {

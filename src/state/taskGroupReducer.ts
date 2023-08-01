@@ -1,6 +1,9 @@
+//Types
 import TaskGroup from 'types/TaskGroup'
 import { ID } from 'types/UtilTypes'
 
+
+//Action types
 type CreateAction = {
     type: 'create',
     data: Omit<TaskGroup, 'id'>
@@ -20,17 +23,8 @@ type Action = CreateAction | DeleteAction | UpdateAction
 
 let max_id = 10;
 
+//Dispatch function type
 export type TaskGroupDispatch = (action: Action) => void
-
-// function findTaskGroupById( all_task_groups: TaskGroup[], id: ID ): TaskGroup {
-//     const task_group: TaskGroup | undefined = 
-//         all_task_groups.find(group => group.id === id)
-//     if (task_group) {
-//         return task_group
-//     } else {
-//         throw new Error('Could not find task group by id')
-//     }
-// }
 
 export default function taskGroupReducer(
     task_groups: TaskGroup[], 
@@ -56,6 +50,8 @@ export default function taskGroupReducer(
 
             const updated_group: any = new_task_groups[index]
 
+            //Replace existing group values with the new values( but only the
+            //ones that were provided)
             for (const key in action.data) {
                 const keyTyped = key as keyof TaskGroup
                 if (keyTyped === 'id') {
