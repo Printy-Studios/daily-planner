@@ -52,6 +52,7 @@ function App() {
   const [settings, setSettings] = useState<Settings>(defaults.settings)
 
   const updateSettings = (updated_settings: Partial<Settings>) => {
+    console.log('updated settings: ', updated_settings)
     const new_settings = {...settings}
 
     for (const key in updated_settings) {
@@ -59,7 +60,7 @@ function App() {
       new_settings[keyTyped] = updated_settings[keyTyped]!
     }
 
-
+    console.log('setting new settings to: ', new_settings)
     setSettings(new_settings)
   }
 

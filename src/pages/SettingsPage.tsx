@@ -1,11 +1,17 @@
 //Core
-import { Formik, Form, useFormikContext } from 'formik'
+import { useContext, useEffect, useMemo } from 'react'
+import { Formik, Form, useFormikContext, FormikValues } from 'formik'
+
+//Types
+import { FontSize } from 'types/Settings'
 
 //Components
 import Select from 'components/forms/Select'
 import Page from 'components/layout/Page'
 import BackButton from 'components/buttons/BackButton'
-import { useEffect } from 'react'
+
+//State
+import SettingsContext from 'state/SettingsContext'
 
 //Props
 type Props = {}
@@ -20,10 +26,31 @@ function FormAutoSave() {
     return null
 }
 
+type FormValues = {
+    font_size: 'S' | 'M' | 'L' | 'XL'
+}
+
 /**
  * Settings page. This is the top level page for the settings
  */
 export default function SettingsPage( {}: Props) {
+
+    const { settings, updateSettings } = useContext(SettingsContext)
+
+    const initialValues: FormValues = useMemo(() => {
+        return {
+            font_size: settings.font_size
+        }
+    }, [])
+
+    const handleSubmit = ( values: FormValues ) => {
+        console.log('values: ', values)
+        console.log('submitting settings')
+        updateSettings({
+            font_size: FontSize[values.font_size]
+        })
+    }
+
     return (
         <Page
             headerLeft={
@@ -31,32 +58,30 @@ export default function SettingsPage( {}: Props) {
             }
         >
             <Formik
-                initialValues={{}}
-                onSubmit={() => {
-                    console.log('submitting formik form')
-                }}
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
             >
                 <Form>
                     <FormAutoSave />
                     <Select
                         label='Font size'
-                        name='font-size'
+                        name='font_size'
                         options={[
                             {
                                 label: 'Small',
-                                value: 's'
+                                value: 'S'
                             },
                             {
                                 label: 'Regular',
-                                value: 'm'
+                                value: 'M'
                             },
                             {
                                 label: 'Large',
-                                value: 'l'
+                                value: 'L'
                             },
                             {
                                 label: 'Extra Large',
-                                value: 'xl'
+                                value: 'XL'
                             }
                         ]}
                     />

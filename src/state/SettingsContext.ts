@@ -3,7 +3,7 @@ import defaults from 'const/defaults'
 import { createContext } from 'react'
 
 //Types
-import Settings, { FontSize } from 'types/Settings'
+import Settings from 'types/Settings'
 
 const SettingsContext = createContext<{
         settings: Settings, 
