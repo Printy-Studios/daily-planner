@@ -449,3 +449,35 @@ code {
 .icon-button:active .icon-button-circle {
   opacity: 0.5;
 }
+
+
+
+/* Different approach (semantic styling instead of util-based styling) */
+
+.color-picker {
+  -webkit-appearance: none;
+  appearance: none;
+  /* background-color: transparent; */
+  border: none;
+  padding: 0px;
+  /* box-sizing: border-box; */
+  border-radius: 500px;
+  height: 32px;
+  width: 32px;
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+  height: 32px;
+  width: 32px;
+  padding: 0px;
+  margin: 0px;
+
+}
+
+.color-picker::-webkit-color-swatch {
+  /* margin: 0px; */
+  border-radius: 500px;
+  border: none;
+  /* height: 36px; */
+  /* width: 36px; */
+}
