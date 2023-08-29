@@ -103,7 +103,7 @@ export default function TaskGroupEditPage() {
             color: values.color
         }
 
-        console.log(state)
+        console.log(data)
 
         //If ID param passed, update task group
         if (state && state.id > -1) {

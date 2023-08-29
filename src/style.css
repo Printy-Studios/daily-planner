@@ -454,13 +454,11 @@ code {
 
 /* Different approach (semantic styling instead of util-based styling) */
 
-.color-picker {
+/*.color-picker {
   -webkit-appearance: none;
   appearance: none;
-  /* background-color: transparent; */
   border: none;
   padding: 0px;
-  /* box-sizing: border-box; */
   border-radius: 500px;
   height: 32px;
   width: 32px;
@@ -475,9 +473,28 @@ code {
 }
 
 .color-picker::-webkit-color-swatch {
-  /* margin: 0px; */
   border-radius: 500px;
   border: none;
-  /* height: 36px; */
-  /* width: 36px; */
+} */
+
+.input-base-color-picker {
+  position: relative;
+}
+
+.color-picker-button {
+
+}
+
+.color-picker {
+  display: flex;
+  position: absolute;
+  top: 24px;
+  right: 0px;
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 8px;
+  padding: 8px;
+  background-color: white;
 }
