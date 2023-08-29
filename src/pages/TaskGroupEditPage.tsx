@@ -103,8 +103,11 @@ export default function TaskGroupEditPage() {
             color: values.color
         }
 
+        console.log(state)
+
         //If ID param passed, update task group
-        if (state && state.id) {
+        if (state && state.id > -1) {
+            console.log('updating group')
             dispatchTaskGroups({
                 type: 'update',
                 data: {
@@ -113,6 +116,7 @@ export default function TaskGroupEditPage() {
                 }
             })
         } else { //Otherwise create a new one
+            console.log('creating new group')
             dispatchTaskGroups({
                 type: 'create',
                 data: {
@@ -146,7 +150,7 @@ export default function TaskGroupEditPage() {
             return {
                 name: task_group.name,
                 time: timeToStr(task_group.time),
-                color: '#000000' //#TODO: Replace with actual color
+                color: task_group.color //#TODO: Replace with actual color
             }
         }
 

@@ -43,6 +43,9 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
             header={(
                 <div
                     className='flex bg-gray-medium p-xs flex items-center border-bottom-gray-dark gap-s'
+                    style={{
+                        backgroundColor: taskGroup.color
+                    }}
                 >
                     <div
                         className='font-bold'
