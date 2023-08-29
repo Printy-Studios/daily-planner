@@ -18,6 +18,7 @@ import Page from 'components/layout/Page'
 import TimeInput from 'components/forms/TimeInput'
 import BackButton from 'components/buttons/BackButton'
 import DeleteButton from 'components/buttons/DeleteButton'
+import ColorInput from 'components/forms/ColorInput'
 
 //Functions
 import useTaskGroups from 'functions/useTaskGroups'
@@ -26,12 +27,14 @@ import useTaskGroups from 'functions/useTaskGroups'
 type FormValues = {
     name: string
     time: string
+    color: string
 }
 
 //Validation schema for form
 const FormSchema: Yup.ObjectSchema<FormValues> = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    time: Yup.string().required().matches(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)
+    time: Yup.string().required().matches(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/),
+    color: Yup.string().required()
 })
 
 /**
@@ -93,22 +96,31 @@ export default function TaskGroupEditPage() {
 
     //Handle submit of form
     const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+
+        const data = {
+            name: values.name,
+            time: strToTime(values.time),
+            color: values.color
+        }
+
+        console.log(data)
+
         //If ID param passed, update task group
-        if (state && state.id) {
+        if (state && state.id > -1) {
+            console.log('updating group')
             dispatchTaskGroups({
                 type: 'update',
                 data: {
                     id: state.id,
-                    name: values.name,
-                    time: strToTime(values.time)
+                    ...data
                 }
             })
         } else { //Otherwise create a new one
+            console.log('creating new group')
             dispatchTaskGroups({
                 type: 'create',
                 data: {
-                    name: values.name,
-                    time: strToTime(values.time)
+                    ...data
                 }
             })
         }
@@ -137,7 +149,8 @@ export default function TaskGroupEditPage() {
 
             return {
                 name: task_group.name,
-                time: timeToStr(task_group.time)
+                time: timeToStr(task_group.time),
+                color: task_group.color //#TODO: Replace with actual color
             }
         }
 
@@ -145,9 +158,10 @@ export default function TaskGroupEditPage() {
         //#TODO: Add default values to defaults.ts and use those here
         return {
             name: '',
-            time: ''
+            time: '',
+            color: '#000000'
         }
-    }, [])
+    }, [getTaskGroupById, state.id])
 
     return (
         <Page
@@ -176,6 +190,10 @@ export default function TaskGroupEditPage() {
                     <TimeInput
                         label='Time'
                         name='time'
+                    />
+                    <ColorInput
+                        label='Color'
+                        name='color'
                     />
                 </Form>
             </Formik>

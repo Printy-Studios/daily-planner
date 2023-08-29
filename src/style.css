@@ -449,3 +449,68 @@ code {
 .icon-button:active .icon-button-circle {
   opacity: 0.5;
 }
+
+
+
+/* Different approach (semantic styling instead of util-based styling) */
+
+/*.color-picker {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 0px;
+  border-radius: 500px;
+  height: 32px;
+  width: 32px;
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+  height: 32px;
+  width: 32px;
+  padding: 0px;
+  margin: 0px;
+
+}
+
+.color-picker::-webkit-color-swatch {
+  border-radius: 500px;
+  border: none;
+} */
+
+.input-base-color-picker {
+  position: relative;
+}
+
+.color-picker-button {
+
+}
+
+.color-picker {
+  display: flex;
+  position: absolute;
+  top: 28px;
+  right: 0px;
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  align-items: center;
+  /* justify-content: center; */
+  width: 100%;
+  gap: 8px;
+  padding: 8px;
+  background-color: white;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 100px;
+  border: none;
+}
+
+.cover {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
