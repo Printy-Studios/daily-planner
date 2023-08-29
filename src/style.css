@@ -481,10 +481,6 @@ code {
   position: relative;
 }
 
-.color-picker-button {
-
-}
-
 .color-picker {
   display: flex;
   position: absolute;
