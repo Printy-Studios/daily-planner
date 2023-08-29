@@ -14,7 +14,8 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 12,
             mins: 10
-        }
+        },
+        color: '#ababab'
     },
     {
         id: 1,
@@ -22,7 +23,8 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 6,
             mins: 20
-        }
+        },
+        color: '#ababab'
     },
     {
         id: 2,
@@ -30,7 +32,8 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 16,
             mins: 0
-        }
+        },
+        color: '#ababab'
     },
     {
         id: 3,
@@ -38,7 +41,8 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 20,
             mins: 30
-        }
+        },
+        color: '#ababab'
     }
 ]
 

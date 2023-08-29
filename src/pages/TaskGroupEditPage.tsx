@@ -96,22 +96,27 @@ export default function TaskGroupEditPage() {
 
     //Handle submit of form
     const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+
+        const data = {
+            name: values.name,
+            time: strToTime(values.time),
+            color: values.color
+        }
+
         //If ID param passed, update task group
         if (state && state.id) {
             dispatchTaskGroups({
                 type: 'update',
                 data: {
                     id: state.id,
-                    name: values.name,
-                    time: strToTime(values.time)
+                    ...data
                 }
             })
         } else { //Otherwise create a new one
             dispatchTaskGroups({
                 type: 'create',
                 data: {
-                    name: values.name,
-                    time: strToTime(values.time)
+                    ...data
                 }
             })
         }
@@ -152,7 +157,7 @@ export default function TaskGroupEditPage() {
             time: '',
             color: '#000000'
         }
-    }, [])
+    }, [getTaskGroupById, state.id])
 
     return (
         <Page
