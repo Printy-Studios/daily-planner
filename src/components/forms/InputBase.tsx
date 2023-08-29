@@ -11,6 +11,9 @@ export default function InputBase({ className, children, label, name, direction 
     return(
         <div
             className={`flex ${direction === 'flex-row' ? direction + ' justify-between' : direction} ${className || ''}`}
+            style={{
+                alignItems: direction === 'flex-row' ? 'center' : 'flex-start'
+            }}
         >
             {label ?
                 <label

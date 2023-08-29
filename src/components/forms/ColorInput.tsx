@@ -23,6 +23,12 @@ export default function ColorInput( props: Props) {
         // console.log(e)
         field.onChange(color.hex)
         helpers.setValue(color.hex)
+
+        setShowPicker(false)
+    }
+
+    const handlePickerClose = () => {
+        setShowPicker(false)
     }
 
     return (
@@ -38,6 +44,7 @@ export default function ColorInput( props: Props) {
                 {...props}
             /> */}
             <button
+                className='swatch'
                 type='button'
                 onClick={togglePicker}
                 style={{
@@ -45,12 +52,17 @@ export default function ColorInput( props: Props) {
                 }}
             />
             { showPicker ? 
-                <CirclePicker
-                    color={field.value}
-                    className='color-picker'
-                    circleSpacing={0}
-                    onChangeComplete={handleColorChange}
-                />
+                <>
+                    <div className='cover' onClick={handlePickerClose} />
+                    <CirclePicker
+                        color={field.value}
+                        className='color-picker'
+                        circleSpacing={0}
+                        onChangeComplete={handleColorChange}
+                    />
+                    
+                </>
+                
             : null }
             
         </InputBase>
