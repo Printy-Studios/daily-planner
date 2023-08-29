@@ -1,4 +1,4 @@
-import { Field, useField } from 'formik'
+import { useField } from 'formik'
 import { useState } from 'react'
 import { CirclePicker, ColorResult } from 'react-color'
 import InputBase from './InputBase'

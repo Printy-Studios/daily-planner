@@ -19,7 +19,12 @@ type DeleteAction = {
     data: (Omit<Partial<TaskGroup>, 'id'> & {id: ID}) | {id: ID}
 }
 
-type Action = CreateAction | DeleteAction | UpdateAction
+type SetAllAction = {
+    type: 'set-all',
+    data: TaskGroup[]
+}
+
+type Action = CreateAction | DeleteAction | UpdateAction | SetAllAction
 
 let max_id = 10;
 
@@ -66,6 +71,9 @@ export default function taskGroupReducer(
         }
         case 'delete': {
             return task_groups.filter(group => group.id !== action.data.id)
+        }
+        case 'set-all': {
+            return action.data
         }
     }
 }

@@ -24,6 +24,8 @@ import SettingsPage from 'pages/SettingsPage';
 import sample from 'const/sample_data';
 import defaults from 'const/defaults';
 import SettingsContext from 'state/SettingsContext';
+import useStorage from 'functions/useStorage';
+import constant from 'const/constant';
 
 //Router
 const router = createBrowserRouter([
@@ -50,10 +52,31 @@ const router = createBrowserRouter([
  */
 function App() {
 
+  //Functions
+  const { setStorageItem, getStorageItem } = useStorage()
+
   //State
-  const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, sample.task_groups)
-  const [tasks, dispatchTasks] = useReducer(taskReducer, sample.tasks)
-  const [settings, setSettings] = useState<Settings>(defaults.settings)
+  const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, getStorageItem(constant.storage_key.task_groups) || [])
+  const [tasks, dispatchTasks] = useReducer(taskReducer, getStorageItem(constant.storage_key.tasks) || [])
+  const [settings, setSettings] = useState<Settings>(getStorageItem(constant.storage_key.settings) || defaults.settings)
+
+  //-- Update localstorage if data changes --//
+  useEffect(() => {
+    setStorageItem(constant.storage_key.task_groups, taskGroups)
+  }, [taskGroups, setStorageItem])
+  useEffect(() => {
+    setStorageItem(constant.storage_key.tasks, tasks)
+  }, [tasks, setStorageItem])
+  useEffect(() => {
+    setStorageItem(constant.storage_key.settings, settings)
+  }, [settings, setStorageItem])
+
+  // useEffect(() => {
+  //   dispatchTaskGroups({
+  //     type: 'set-all',
+  //     data: getStorageItem(constant.storage_key.task_groups)
+  //   })
+  // }, [])
 
   /**
    * Update settings function. Pass any settings to modify, and only those

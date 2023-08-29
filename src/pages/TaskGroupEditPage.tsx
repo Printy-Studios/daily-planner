@@ -161,7 +161,7 @@ export default function TaskGroupEditPage() {
             time: '',
             color: '#000000'
         }
-    }, [getTaskGroupById, state.id])
+    }, [getTaskGroupById])
 
     return (
         <Page
