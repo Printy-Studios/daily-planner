@@ -4,13 +4,13 @@ import * as Yup from 'yup';
 import { Form, Formik } from 'formik'
 
 //Components
-import TextInput from 'components/forms/TextInput'
+import TextInput from 'components/input/TextInput'
 import Page from 'components/layout/Page'
-import TextArea from 'components/forms/TextArea'
+import TextArea from 'components/input/TextArea'
 import BackButton from 'components/buttons/BackButton'
 import { useLocation, useNavigate } from 'react-router-dom'
 import DeleteButton from 'components/buttons/DeleteButton';
-import Select from 'components/forms/Select';
+import Select from 'components/input/Select';
 import useTasks from 'functions/useTasks';
 import { Task, TaskType } from 'types/Task';
 

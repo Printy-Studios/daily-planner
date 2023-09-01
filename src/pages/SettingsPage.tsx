@@ -6,7 +6,7 @@ import { Formik, Form, useFormikContext } from 'formik'
 import { FontSize } from 'types/Settings'
 
 //Components
-import Select from 'components/forms/Select'
+import Select from 'components/input/Select'
 import Page from 'components/layout/Page'
 import BackButton from 'components/buttons/BackButton'
 

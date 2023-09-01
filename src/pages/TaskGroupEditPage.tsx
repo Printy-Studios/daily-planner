@@ -13,12 +13,12 @@ import { TaskGroupDispatchContext } from 'state/TaskGroupContext'
 import { TaskGroupDispatch } from 'state/taskGroupReducer'
 
 //Components
-import TextInput from 'components/forms/TextInput'
+import TextInput from 'components/input/TextInput'
 import Page from 'components/layout/Page'
-import TimeInput from 'components/forms/TimeInput'
+import TimeInput from 'components/input/TimeInput'
 import BackButton from 'components/buttons/BackButton'
 import DeleteButton from 'components/buttons/DeleteButton'
-import ColorInput from 'components/forms/ColorInput'
+import ColorInput from 'components/input/ColorInput'
 
 //Functions
 import useTaskGroups from 'functions/useTaskGroups'
@@ -81,15 +81,27 @@ function timeToStr(time: Time): string {
     return `${padTime(time.hrs)}:${padTime(time.mins)}`
 }
 
+type RouteState = {
+    id?: number,
+    date: Date
+}
+
 /**
  * Task Group Edit Page
  */
 export default function TaskGroupEditPage() {
 
     //Hooks
-    const { state } = useLocation();
+    const { state }: { state: RouteState } = useLocation();
     const navigate = useNavigate();
     const { getTaskGroupById } = useTaskGroups();
+
+    const task_group = useMemo(() => {
+        if (state?.id != null && state?.id !== undefined) {
+            return getTaskGroupById(state.id)
+        }
+        return null
+    }, [])
     
     //#TODO: Change dispatch to useTaskGroups()
     const dispatchTaskGroups: TaskGroupDispatch = useContext(TaskGroupDispatchContext)
@@ -100,13 +112,14 @@ export default function TaskGroupEditPage() {
         const data = {
             name: values.name,
             time: strToTime(values.time),
-            color: values.color
+            color: values.color,
+            date: (task_group && task_group.date) || state.date
         }
 
-        console.log(data)
+        //console.log(data)
 
         //If ID param passed, update task group
-        if (state && state.id > -1) {
+        if (state && state.id) {
             console.log('updating group')
             dispatchTaskGroups({
                 type: 'update',
@@ -134,7 +147,7 @@ export default function TaskGroupEditPage() {
         dispatchTaskGroups({
             type: 'delete',
             data: {
-                id: state.id
+                id: state.id!
             }
         })
         //After deleting task group, navigate back to the Schedule page
@@ -161,7 +174,9 @@ export default function TaskGroupEditPage() {
             time: '',
             color: '#000000'
         }
+    /* eslint-disable */
     }, [getTaskGroupById])
+    /*eslint-enable */
 
     return (
         <Page

@@ -1,5 +1,5 @@
 import { Field } from 'formik'
-import { HTMLAttributes, TextareaHTMLAttributes } from 'react'
+import { TextareaHTMLAttributes } from 'react'
 
 import InputBase from './InputBase'
 

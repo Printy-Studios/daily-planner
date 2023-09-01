@@ -510,3 +510,25 @@ code {
   left: 0px;
   right: 0px;
 }
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.step-selector {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 32px;
+}
+
+.column-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
