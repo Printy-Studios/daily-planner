@@ -26,6 +26,8 @@ import defaults from 'const/defaults';
 import SettingsContext from 'state/SettingsContext';
 import useStorage from 'functions/useStorage';
 import constant from 'const/constant';
+import MiscContext from 'state/MiscContext';
+import MiscState from 'types/MiscState';
 
 //Router
 const router = createBrowserRouter([
@@ -59,6 +61,9 @@ function App() {
   const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, getStorageItem(constant.storage_key.task_groups) || [])
   const [tasks, dispatchTasks] = useReducer(taskReducer, getStorageItem(constant.storage_key.tasks) || [])
   const [settings, setSettings] = useState<Settings>(getStorageItem(constant.storage_key.settings) || defaults.settings)
+  const [miscState, setMiscState] = useState<MiscState>({
+    selectedDate: new Date()
+  })
 
   //-- Update localstorage if data changes --//
   useEffect(() => {
@@ -96,6 +101,19 @@ function App() {
     setSettings(new_settings)
   }
 
+  const updateMiscState = (updated_misc_state: Partial<MiscState>) => {
+    const new_misc_state = {...miscState}
+
+    //Update new settings state with those settings that were provided(but not
+    //those that weren't provided)
+    for (const key in updated_misc_state) {
+      const keyTyped = key as keyof MiscState
+      new_misc_state[keyTyped] = updated_misc_state[keyTyped]!
+    }
+
+    setMiscState(new_misc_state)
+  }
+
   /**
    * On font_size setting change, update the base REM unit to the corresponding
    * font size.
@@ -114,17 +132,19 @@ function App() {
 
   return (
     <div className='h-full'>
-      <SettingsContext.Provider value={{ settings, updateSettings }}>
-        <TasksContext.Provider value={tasks}>
-          <TasksDispatchContext.Provider value={dispatchTasks}>
-            <TaskGroupContext.Provider value={taskGroups} >
-              <TaskGroupDispatchContext.Provider value={dispatchTaskGroups}>
-                <RouterProvider router={router} />
-              </TaskGroupDispatchContext.Provider>
-            </TaskGroupContext.Provider>
-          </TasksDispatchContext.Provider>
-        </TasksContext.Provider>
-      </SettingsContext.Provider>
+      <MiscContext.Provider value={{ miscState, updateMiscState }}>
+        <SettingsContext.Provider value={{ settings, updateSettings }}>
+          <TasksContext.Provider value={tasks}>
+            <TasksDispatchContext.Provider value={dispatchTasks}>
+              <TaskGroupContext.Provider value={taskGroups} >
+                <TaskGroupDispatchContext.Provider value={dispatchTaskGroups}>
+                  <RouterProvider router={router} />
+                </TaskGroupDispatchContext.Provider>
+              </TaskGroupContext.Provider>
+            </TasksDispatchContext.Provider>
+          </TasksContext.Provider>
+        </SettingsContext.Provider>
+      </MiscContext.Provider>
     </div>
   );
 }

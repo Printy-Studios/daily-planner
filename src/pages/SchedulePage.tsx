@@ -1,5 +1,5 @@
 //Core
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Cog6ToothIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import TaskGroupLink from 'components/buttons/AddTaskGroupButton';
 import Page from 'components/layout/Page';
 import IconButton from 'components/buttons/IconButton';
 import DaySelector from 'components/input/DaySelector';
+import MiscContext from 'state/MiscContext';
 
 export default function SchedulePage(){
 
@@ -20,11 +21,16 @@ export default function SchedulePage(){
 
     //State
     const taskGroups = useContext(TaskGroupContext)
+    const { miscState, updateMiscState } = useContext(MiscContext)
 
     //Handler for 'Settings' button. Right now just navigates to /settings
     const handleSettingsClick = () => navigate('/settings')
 
-    const [ currentDate, setCurrentDate ] = useState<Date>(new Date())
+    const [ selectedDate, setSelectedDate ] = useState<Date>(miscState.selectedDate)
+
+    useEffect(() => {
+        updateMiscState({selectedDate: selectedDate})
+    }, [selectedDate])
 
     return (
         <Page
@@ -39,16 +45,21 @@ export default function SchedulePage(){
         >
             {/* Day Selector */}
             <DaySelector
-                value={currentDate}
-                onChange={setCurrentDate}
+                value={selectedDate}
+                onChange={setSelectedDate}
             />
             {/* Task Group List */}
             <TaskGroupList
-                taskGroups={taskGroups}
+                taskGroups={
+                    taskGroups.filter(
+                        task_group => new Date(task_group.date).toDateString() === selectedDate.toDateString()
+                    )
+                }
             />
             {/* 'Add Task group' button */}
             <TaskGroupLink
                 text='+'
+                date={selectedDate}
             />
         </Page>
     )

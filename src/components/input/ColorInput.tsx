@@ -11,7 +11,7 @@ type Props = {
 
 export default function ColorInput( props: Props) {
 
-    const [ field, meta, helpers ] = useField(props.name)
+    const [ field, , helpers ] = useField(props.name)
 
     const [ showPicker, setShowPicker ] = useState<boolean>(false)
 

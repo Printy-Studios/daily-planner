@@ -95,6 +95,13 @@ export default function TaskGroupEditPage() {
     const { state }: { state: RouteState } = useLocation();
     const navigate = useNavigate();
     const { getTaskGroupById } = useTaskGroups();
+
+    const task_group = useMemo(() => {
+        if (state?.id != null && state?.id !== undefined) {
+            return getTaskGroupById(state.id)
+        }
+        return null
+    }, [])
     
     //#TODO: Change dispatch to useTaskGroups()
     const dispatchTaskGroups: TaskGroupDispatch = useContext(TaskGroupDispatchContext)
@@ -106,7 +113,7 @@ export default function TaskGroupEditPage() {
             name: values.name,
             time: strToTime(values.time),
             color: values.color,
-            date: state.date
+            date: (task_group && task_group.date) || state.date
         }
 
         //console.log(data)
