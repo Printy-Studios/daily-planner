@@ -7,6 +7,7 @@ type TaskGroup = {
     id: ID //ID of task group. Most be unique
     name: string //Name of task group
     time: Time //Time of task group
+    date: Date //Date of task group
     color: string //Color of the task group as displayed in task group lists
 }
 
