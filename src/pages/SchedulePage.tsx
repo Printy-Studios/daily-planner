@@ -13,6 +13,7 @@ import Page from 'components/layout/Page';
 import IconButton from 'components/buttons/IconButton';
 import DaySelector from 'components/input/DaySelector';
 import MiscContext from 'state/MiscContext';
+import timeToMinutes from 'functions/timeToNumber';
 
 export default function SchedulePage(){
 
@@ -53,7 +54,7 @@ export default function SchedulePage(){
                 taskGroups={
                     taskGroups.filter(
                         task_group => new Date(task_group.date).toDateString() === selectedDate.toDateString()
-                    )
+                    ).sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time))
                 }
             />
             {/* 'Add Task group' button */}
