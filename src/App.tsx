@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 //Types
-import Settings from 'types/Settings';
+import Settings, { ThemeOption } from 'types/Settings';
 
 //State
 import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupContext';
@@ -89,14 +89,15 @@ function App() {
    * @param {Partial<Settings>} updated_settings Settings to update
    */
   const updateSettings = (updated_settings: Partial<Settings>) => {
-    const new_settings = {...settings}
+    const new_settings: Settings = {...settings, ...updated_settings}
 
     //Update new settings state with those settings that were provided(but not
     //those that weren't provided)
-    for (const key in updated_settings) {
-      const keyTyped = key as keyof Settings
-      new_settings[keyTyped] = updated_settings[keyTyped]!
-    }
+    // let key: keyof Settings
+    // for (key in updated_settings) {
+    //   const keyTyped = key as keyof Settings
+    //   new_settings[keyTyped] = updated_settings[keyTyped]!
+    // }
 
     setSettings(new_settings)
   }
@@ -129,6 +130,40 @@ function App() {
     //Update document root with new base font size
     document.documentElement.style.fontSize = font_size_mappings[settings.font_size]
   }, [settings.font_size])
+
+  useEffect(() => {
+
+    let primary = null
+    let secondary = null
+    let background = null
+
+
+    switch(settings.theme) {
+      case ThemeOption.LIGHT: {
+        primary = '#d6d6d6'
+        secondary = '#ededed'
+        background = '#ffffff'
+        break
+      }
+      case ThemeOption.DARK: {
+        primary = '#e0e0e0'
+        secondary = '#2b2b2b'
+        background = '#404040'
+        break
+      }
+    }
+
+    const r: HTMLElement = document.querySelector(':root')!;
+
+    function setStyleVar(name: string, value: string) {
+      r.style.setProperty(name, value)
+    }
+
+    setStyleVar('--primary', primary)
+    setStyleVar('--secondary', secondary)
+    setStyleVar('--background', background)
+
+  }, [settings.theme])
 
   return (
     <div className='h-full'>

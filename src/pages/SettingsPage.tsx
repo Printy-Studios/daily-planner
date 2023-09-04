@@ -3,7 +3,7 @@ import { useContext, useEffect, useMemo } from 'react'
 import { Formik, Form, useFormikContext } from 'formik'
 
 //Types
-import { FontSize } from 'types/Settings'
+import { FontSize, ThemeOption } from 'types/Settings'
 
 //Components
 import Select from 'components/input/Select'
@@ -39,6 +39,7 @@ function FormAutoSave() {
 //Form values type
 type FormValues = {
     font_size: 'S' | 'M' | 'L' | 'XL'
+    theme: 'DARK' | 'LIGHT'
 }
 
 /**
@@ -52,7 +53,8 @@ export default function SettingsPage() {
     //Set initial values to setting's values
     const initialValues: FormValues = useMemo(() => {
         return {
-            font_size: settings.font_size
+            font_size: settings.font_size,
+            theme: settings.theme
         }
     }, [])
 
@@ -60,7 +62,8 @@ export default function SettingsPage() {
     const handleSubmit = ( values: FormValues ) => {
         //Update settings with new values
         updateSettings({
-            font_size: FontSize[values.font_size]
+            font_size: FontSize[values.font_size],
+            theme: ThemeOption[values.theme]
         })
     }
 
@@ -97,6 +100,21 @@ export default function SettingsPage() {
                             {
                                 label: 'Extra Large',
                                 value: 'XL'
+                            }
+                        ]}
+                    />
+                    {/* Theme */}
+                    <Select
+                        label='Theme'
+                        name='theme'
+                        options={[
+                            {
+                                label: 'Dark',
+                                value: 'DARK'
+                            },
+                            {
+                                label: 'Light',
+                                value: 'LIGHT'
                             }
                         ]}
                     />

@@ -8,10 +8,10 @@ type Props = {
 export default function Page({ children, headerLeft, headerRight }: PropsWithChildren<Props>) {
     return (
         <div
-            className='flex flex-col h-full'
+            className='flex flex-col h-full page'
         >
             {headerLeft || headerRight ? 
-                <div className='flex w-full border-bottom-gray-dark justify-between p-s'>
+                <div className='flex w-full border-bottom-gray-dark justify-between p-s header'>
                     <div>
                         {headerLeft}
                     </div>
@@ -22,7 +22,7 @@ export default function Page({ children, headerLeft, headerRight }: PropsWithChi
                     
                 </div>
             : null}
-            <div className='flex flex-col flex-grow p-s gap-m'>
+            <div className='flex flex-col flex-grow p-s gap-m page-content'>
                 {children}
             </div>
             
