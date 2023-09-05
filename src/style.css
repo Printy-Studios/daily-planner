@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
 
+  color: var(--on-background)
   /* background-color: var(--background); */
 }
 
@@ -30,6 +31,15 @@ code {
 
   /* Warn */
   --warn-medium: #d60202;
+
+  /*
+    Vars created by JS:
+
+      --background
+      --primary
+      --secondary
+      --on-background
+  */
 
 
   /* --color-background: green; */
@@ -517,11 +527,6 @@ code {
   right: 0px;
 }
 
-.icon {
-  width: 24px;
-  height: 24px;
-}
-
 .step-selector {
   width: 100%;
   box-sizing: border-box;
@@ -549,10 +554,31 @@ form {
   background-color: var(--secondary);
 }
 
-.page {
-  /* background-color: var(--background); */
+.primary-button {
+  color: var(--on-primary)
 }
+
+/* .page {
+ 
+} */
 
 .page-content {
   background-color: var(--background);
+}
+
+/* Typography */
+
+.extra-text {
+  font-size: 0.8rem;
+  color: var(--on-background-dark)
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: var(--on-background)
+}
+
+.icon-secondary {
+  color: var(--on-background-dark)
 }

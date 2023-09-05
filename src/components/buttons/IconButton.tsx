@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode, ButtonHTMLAttributes } from 'react';
+import { ReactNode, ButtonHTMLAttributes } from 'react';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
     icon: ReactNode

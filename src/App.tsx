@@ -6,13 +6,16 @@ import {
 } from 'react-router-dom'
 
 //Types
-import Settings, { ThemeOption } from 'types/Settings';
+import Settings from 'types/Settings';
 
 //State
 import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupContext';
 import { TasksContext, TasksDispatchContext } from 'state/TasksContext';
 import taskGroupReducer from 'state/taskGroupReducer';
 import taskReducer from 'state/taskReducer';
+import MiscContext from 'state/MiscContext';
+import MiscState from 'types/MiscState';
+import SettingsContext from 'state/SettingsContext';
 
 //Pages
 import SchedulePage from 'pages/SchedulePage';
@@ -20,14 +23,14 @@ import TaskGroupEditPage from 'pages/TaskGroupEditPage';
 import TaskEditPage from 'pages/TaskEditPage';
 import SettingsPage from 'pages/SettingsPage';
 
-//Const
-import sample from 'const/sample_data';
-import defaults from 'const/defaults';
-import SettingsContext from 'state/SettingsContext';
+//Functions
 import useStorage from 'functions/useStorage';
-import constant from 'const/constant';
-import MiscContext from 'state/MiscContext';
-import MiscState from 'types/MiscState';
+
+//Const
+import defaults from 'const/defaults';
+import constant, { themes } from 'const/constant';
+import Theme from 'types/Theme';
+
 
 //Router
 const router = createBrowserRouter([
@@ -133,35 +136,24 @@ function App() {
 
   useEffect(() => {
 
-    let primary = null
-    let secondary = null
-    let background = null
-
-
-    switch(settings.theme) {
-      case ThemeOption.LIGHT: {
-        primary = '#d6d6d6'
-        secondary = '#ededed'
-        background = '#ffffff'
-        break
-      }
-      case ThemeOption.DARK: {
-        primary = '#e0e0e0'
-        secondary = '#2b2b2b'
-        background = '#404040'
-        break
-      }
-    }
-
     const r: HTMLElement = document.querySelector(':root')!;
 
     function setStyleVar(name: string, value: string) {
       r.style.setProperty(name, value)
     }
 
-    setStyleVar('--primary', primary)
-    setStyleVar('--secondary', secondary)
-    setStyleVar('--background', background)
+    const new_theme: Theme = themes[settings.theme]
+
+
+    Object.keys(new_theme.color).forEach(key => {
+      console.log(key)
+      setStyleVar(`--${key}`, new_theme.color[key as keyof Theme['color']])
+    })
+
+    // setStyleVar('--primary', new_theme.color.primary)
+    // setStyleVar('--secondary', new_theme.color.secondary)
+    // setStyleVar('--background', new_theme.color.background)
+    // setStyleVar('--on-background', new_theme.color.onBackground)
 
   }, [settings.theme])
 

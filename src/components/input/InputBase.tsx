@@ -18,7 +18,7 @@ export default function InputBase({ className, children, label, name, direction 
             {label ?
                 <label
                     htmlFor={name}
-                    className='text-xs text-gray-dark'
+                    className='text-xs extra-text'
                 >
                     {label}
                 </label>

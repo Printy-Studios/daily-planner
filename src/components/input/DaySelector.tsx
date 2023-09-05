@@ -60,7 +60,7 @@ export default function DaySelector( { value, onChange }: DaySelectorProps) {
             <IconButton
                 icon={
                     <ChevronLeftIcon
-                        className='icon'
+                        className='icon icon-secondary'
                     />
                 }
                 onClick={handleLeftArrowClick}
@@ -72,7 +72,7 @@ export default function DaySelector( { value, onChange }: DaySelectorProps) {
                         day: 'numeric'
                     })}
                 </span>
-                <span>
+                <span className='extra-text'>
                     { 
                         isToday(value) ? 
                         'Today' :
@@ -89,7 +89,7 @@ export default function DaySelector( { value, onChange }: DaySelectorProps) {
             <IconButton
                 icon={
                     <ChevronRightIcon
-                        className='icon'
+                        className='icon icon-secondary'
                     />
                 }
                 onClick={handleRightArrowClick}
