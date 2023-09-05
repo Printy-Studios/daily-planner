@@ -39,7 +39,7 @@ export default function SchedulePage(){
                 <IconButton
                     onClick={handleSettingsClick}
                     icon={
-                        <Cog6ToothIcon className='w-xs-1/2 h-xs-1/2'/>
+                        <Cog6ToothIcon className='icon icon-secondary'/>
                     }
                 />
             }

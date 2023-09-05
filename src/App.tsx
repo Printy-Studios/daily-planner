@@ -13,6 +13,9 @@ import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupConte
 import { TasksContext, TasksDispatchContext } from 'state/TasksContext';
 import taskGroupReducer from 'state/taskGroupReducer';
 import taskReducer from 'state/taskReducer';
+import MiscContext from 'state/MiscContext';
+import MiscState from 'types/MiscState';
+import SettingsContext from 'state/SettingsContext';
 
 //Pages
 import SchedulePage from 'pages/SchedulePage';
@@ -20,14 +23,14 @@ import TaskGroupEditPage from 'pages/TaskGroupEditPage';
 import TaskEditPage from 'pages/TaskEditPage';
 import SettingsPage from 'pages/SettingsPage';
 
-//Const
-import sample from 'const/sample_data';
-import defaults from 'const/defaults';
-import SettingsContext from 'state/SettingsContext';
+//Functions
 import useStorage from 'functions/useStorage';
-import constant from 'const/constant';
-import MiscContext from 'state/MiscContext';
-import MiscState from 'types/MiscState';
+
+//Const
+import defaults from 'const/defaults';
+import constant, { themes } from 'const/constant';
+import Theme from 'types/Theme';
+
 
 //Router
 const router = createBrowserRouter([
@@ -89,14 +92,15 @@ function App() {
    * @param {Partial<Settings>} updated_settings Settings to update
    */
   const updateSettings = (updated_settings: Partial<Settings>) => {
-    const new_settings = {...settings}
+    const new_settings: Settings = {...settings, ...updated_settings}
 
     //Update new settings state with those settings that were provided(but not
     //those that weren't provided)
-    for (const key in updated_settings) {
-      const keyTyped = key as keyof Settings
-      new_settings[keyTyped] = updated_settings[keyTyped]!
-    }
+    // let key: keyof Settings
+    // for (key in updated_settings) {
+    //   const keyTyped = key as keyof Settings
+    //   new_settings[keyTyped] = updated_settings[keyTyped]!
+    // }
 
     setSettings(new_settings)
   }
@@ -129,6 +133,29 @@ function App() {
     //Update document root with new base font size
     document.documentElement.style.fontSize = font_size_mappings[settings.font_size]
   }, [settings.font_size])
+
+  useEffect(() => {
+
+    const r: HTMLElement = document.querySelector(':root')!;
+
+    function setStyleVar(name: string, value: string) {
+      r.style.setProperty(name, value)
+    }
+
+    const new_theme: Theme = themes[settings.theme]
+
+
+    Object.keys(new_theme.color).forEach(key => {
+      console.log(key)
+      setStyleVar(`--${key}`, new_theme.color[key as keyof Theme['color']])
+    })
+
+    // setStyleVar('--primary', new_theme.color.primary)
+    // setStyleVar('--secondary', new_theme.color.secondary)
+    // setStyleVar('--background', new_theme.color.background)
+    // setStyleVar('--on-background', new_theme.color.onBackground)
+
+  }, [settings.theme])
 
   return (
     <div className='h-full'>

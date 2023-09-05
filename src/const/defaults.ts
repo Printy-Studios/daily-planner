@@ -1,5 +1,5 @@
 //Types
-import Settings, { FontSize } from 'types/Settings';
+import Settings, { FontSize, ThemeOption } from 'types/Settings';
 
 /*
     Defaults and placeholders.
@@ -7,7 +7,8 @@ import Settings, { FontSize } from 'types/Settings';
 
 //Setting defaults.
 const settings: Settings = {
-    font_size: FontSize.M
+    font_size: FontSize.M,
+    theme: ThemeOption.DARK
 }
 
 const defaults = {
