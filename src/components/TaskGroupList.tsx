@@ -1,6 +1,8 @@
 //Core
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
+
 //@ts-ignore
 import Color from 'color'
 
@@ -41,19 +43,43 @@ function TaskGroupListItem( {taskGroup, isLast = false}: TaskGroupListItemProps)
         navigate('task-edit', { state: { group_id: taskGroup.id } })
     }
 
-    const color = Color(taskGroup.color)
-    const color_surface = color.darken(0.2)
+    // const color = 
+    
+
+    // const task_item_divider_color = useMemo()color_surface.darken(0.1)
+
+    const color = useMemo(() => {
+        const main = Color(taskGroup.color)
+        const surface = main.darken(0.2)
+        return {
+            main,
+            surface,
+            task_item_divider: surface.darken(0.2)
+        }
+    }, [taskGroup.color])
+
+    const is_surface_dark = useMemo(() => {
+        return color.surface.isDark()
+    }, [taskGroup.color])
+    const is_header_dark = useMemo(() => {
+        return color.main.isDark()
+    }, [taskGroup.color])
+
+    const text_color = useMemo(() => {
+        return is_header_dark ? '#ffffff' : '#000000'
+    }, [taskGroup.color])
 
     return (
         <Accordion
             style={{
-                borderBottom: isLast ? '' : `8px solid ${color_surface.hex()}`
+                borderBottom: isLast ? '' : `8px solid ${color.surface.hex()}`
             }}
             header={(
                 <div
                     className='flex bg-gray-medium p-xs flex items-center gap-s'
                     style={{
-                        backgroundColor: taskGroup.color
+                        backgroundColor: taskGroup.color,
+                        color: text_color
                     }}
                 >
                     <div
@@ -70,6 +96,9 @@ function TaskGroupListItem( {taskGroup, isLast = false}: TaskGroupListItemProps)
                         icon={
                             <PencilSquareIcon 
                                 className='w-xs-1/2'
+                                style={{
+                                    color: text_color
+                                }}
                             />
                         }
                     />
@@ -79,16 +108,25 @@ function TaskGroupListItem( {taskGroup, isLast = false}: TaskGroupListItemProps)
                 <div
                     className='bg-gray-light w-full'
                     style={{
-                        backgroundColor: color_surface.hex(),
+                        backgroundColor: color.surface.hex(),
                     }}
                 >
-                    <TaskList tasks={tasks}/>
+                    <TaskList 
+                        tasks={tasks}
+                        variant={is_surface_dark ? 'light' : 'dark'}
+                        dividerColor={color.task_item_divider.hex()}
+                    />
                     <div className='p-s'>
                         <IconButton
                             onClick={handleTaskAddClick}
                             className='ml-auto'
                             icon={
-                                <PlusIcon className='w-xs h-xs'/>
+                                <PlusIcon 
+                                    className='w-xs h-xs'
+                                    style={{
+                                        color: is_surface_dark ? '#ffffff' : '#000000'
+                                    }}    
+                                />
                             }
                         />
                     </div>

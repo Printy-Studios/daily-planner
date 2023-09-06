@@ -172,7 +172,7 @@ export default function TaskGroupEditPage() {
         return {
             name: '',
             time: '',
-            color: '#000000'
+            color: '#4caf50'
         }
     /* eslint-disable */
     }, [getTaskGroupById])

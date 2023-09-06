@@ -28,7 +28,7 @@ const themes: Record<ThemeOption, Theme> = {
             secondary: '#ededed',
             background: '#ffffff',
             "on-background": '#000000',
-            "on-background-dark": '#TODO',
+            "on-background-dark": '#595959',
             "on-primary": '#TODO'
         }
     }
