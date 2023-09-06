@@ -1,6 +1,8 @@
 //Core
 import { useNavigate } from 'react-router-dom'
 import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
+//@ts-ignore
+import Color from 'color'
 
 //Types
 import TaskGroup from 'types/TaskGroup'
@@ -20,9 +22,10 @@ type Props = {
 
 type TaskGroupListItemProps = {
     taskGroup: TaskGroup
+    isLast: boolean
 }
 
-function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
+function TaskGroupListItem( {taskGroup, isLast = false}: TaskGroupListItemProps) {
 
     const { getTasksByGroup } = useTasks()
 
@@ -38,11 +41,17 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
         navigate('task-edit', { state: { group_id: taskGroup.id } })
     }
 
+    const color = Color(taskGroup.color)
+    const color_surface = color.darken(0.2)
+
     return (
         <Accordion
+            style={{
+                borderBottom: isLast ? '' : `8px solid ${color_surface.hex()}`
+            }}
             header={(
                 <div
-                    className='flex bg-gray-medium p-xs flex items-center border-bottom-gray-dark gap-s'
+                    className='flex bg-gray-medium p-xs flex items-center gap-s'
                     style={{
                         backgroundColor: taskGroup.color
                     }}
@@ -66,9 +75,12 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
                     />
                 </div>
             )}
-            content={(
+            contents={(
                 <div
                     className='bg-gray-light w-full'
+                    style={{
+                        backgroundColor: color_surface.hex(),
+                    }}
                 >
                     <TaskList tasks={tasks}/>
                     <div className='p-s'>
@@ -90,9 +102,9 @@ function TaskGroupListItem( {taskGroup}: TaskGroupListItemProps) {
 export default function TaskGroupList( {taskGroups}: Props) {
     return (
         <ul className='list-reset'>
-            {taskGroups.map( item => (
+            {taskGroups.map( (item, index) => (
                 <li key={item.id}>
-                    <TaskGroupListItem taskGroup={item} />
+                    <TaskGroupListItem taskGroup={item} isLast={taskGroups.length === index} />
                 </li>
             ))}
         </ul>
