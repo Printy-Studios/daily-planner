@@ -1,5 +1,5 @@
 //Core
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { 
   RouterProvider, 
   createBrowserRouter 
@@ -25,6 +25,7 @@ import SettingsPage from 'pages/SettingsPage';
 
 //Functions
 import useStorage from 'functions/useStorage';
+import useUpdatableState from 'functions/useUpdatableState';
 
 //Const
 import defaults from 'const/defaults';
@@ -52,22 +53,7 @@ const router = createBrowserRouter([
   }
 ])
 
-const useUpdatableState = <T,>(initial_value: T): [
-  state: T,
-  updateState: (updated_state: Partial<T>) => void,
-  setState: (new_state: T) => void
-] => {
 
-  const [_state, _setState] = useState<T>(initial_value)
-
-  const updateState = (updated_state: Partial<T>) => {
-    const new_state: T = {..._state, ...updated_state}
-
-    _setState(new_state)
-  }
-
-  return [_state, updateState, _setState]
-}
 
 /**
  * Main app component
