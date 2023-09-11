@@ -1,5 +1,7 @@
+//Core
 import { createContext } from 'react';
 
+//Types
 import MiscState from 'types/MiscState';
 
 const MiscContext = createContext<{
