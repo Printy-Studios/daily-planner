@@ -52,6 +52,23 @@ const router = createBrowserRouter([
   }
 ])
 
+const useUpdatableState = <T,>(initial_value: T): [
+  state: T,
+  updateState: (updated_state: Partial<T>) => void,
+  setState: (new_state: T) => void
+] => {
+
+  const [_state, _setState] = useState<T>(initial_value)
+
+  const updateState = (updated_state: Partial<T>) => {
+    const new_state: T = {..._state, ...updated_state}
+
+    _setState(new_state)
+  }
+
+  return [_state, updateState, _setState]
+}
+
 /**
  * Main app component
  */
@@ -63,8 +80,8 @@ function App() {
   //State
   const [taskGroups, dispatchTaskGroups] = useReducer(taskGroupReducer, getStorageItem(constant.storage_key.task_groups) || [])
   const [tasks, dispatchTasks] = useReducer(taskReducer, getStorageItem(constant.storage_key.tasks) || [])
-  const [settings, setSettings] = useState<Settings>(getStorageItem(constant.storage_key.settings) || defaults.settings)
-  const [miscState, setMiscState] = useState<MiscState>({
+  const [settings, updateSettings] = useUpdatableState<Settings>(getStorageItem(constant.storage_key.settings) || defaults.settings)
+  const [miscState, updateMiscState] = useUpdatableState<MiscState>({
     selectedDate: new Date()
   })
 
@@ -86,37 +103,37 @@ function App() {
   //   })
   // }, [])
 
-  /**
-   * Update settings function. Pass any settings to modify, and only those
-   * settings will be modified in the state
-   * @param {Partial<Settings>} updated_settings Settings to update
-   */
-  const updateSettings = (updated_settings: Partial<Settings>) => {
-    const new_settings: Settings = {...settings, ...updated_settings}
+  // /**
+  //  * Update settings function. Pass any settings to modify, and only those
+  //  * settings will be modified in the state
+  //  * @param {Partial<Settings>} updated_settings Settings to update
+  //  */
+  // const updateSettings = (updated_settings: Partial<Settings>) => {
+  //   const new_settings: Settings = {...settings, ...updated_settings}
 
-    //Update new settings state with those settings that were provided(but not
-    //those that weren't provided)
-    // let key: keyof Settings
-    // for (key in updated_settings) {
-    //   const keyTyped = key as keyof Settings
-    //   new_settings[keyTyped] = updated_settings[keyTyped]!
-    // }
+  //   //Update new settings state with those settings that were provided(but not
+  //   //those that weren't provided)
+  //   // let key: keyof Settings
+  //   // for (key in updated_settings) {
+  //   //   const keyTyped = key as keyof Settings
+  //   //   new_settings[keyTyped] = updated_settings[keyTyped]!
+  //   // }
 
-    setSettings(new_settings)
-  }
+  //   setSettings(new_settings)
+  // }
 
-  const updateMiscState = (updated_misc_state: Partial<MiscState>) => {
-    const new_misc_state = {...miscState}
+  // const updateMiscState = (updated_misc_state: Partial<MiscState>) => {
+  //   const new_misc_state = {...miscState}
 
-    //Update new settings state with those settings that were provided(but not
-    //those that weren't provided)
-    for (const key in updated_misc_state) {
-      const keyTyped = key as keyof MiscState
-      new_misc_state[keyTyped] = updated_misc_state[keyTyped]!
-    }
+  //   //Update new settings state with those settings that were provided(but not
+  //   //those that weren't provided)
+  //   for (const key in updated_misc_state) {
+  //     const keyTyped = key as keyof MiscState
+  //     new_misc_state[keyTyped] = updated_misc_state[keyTyped]!
+  //   }
 
-    setMiscState(new_misc_state)
-  }
+  //   setMiscState(new_misc_state)
+  // }
 
   /**
    * On font_size setting change, update the base REM unit to the corresponding
