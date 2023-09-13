@@ -9,6 +9,7 @@ import { FontSize, ThemeOption } from 'types/Settings'
 import Select from 'components/input/Select'
 import Page from 'components/layout/Page'
 import BackButton from 'components/buttons/BackButton'
+import FormAutoSave from 'components/misc/FormAutoSave'
 
 //State
 import SettingsContext from 'state/SettingsContext'
@@ -16,25 +17,7 @@ import SettingsContext from 'state/SettingsContext'
 //Props
 //type Props = {}
 
-/**
- * Basic function for enabling autosave in a Formik form. #TODO Should probably be
- * extracted to a separate file
- * 
- * @returns {null}
- */
-function FormAutoSave() {
 
-    //Get formik context
-    const formik = useFormikContext()
-
-    //Submit form when a form value changes
-    useEffect(() => {
-        formik.submitForm()
-    }, [formik.values])
-
-    //Doesn't render anything
-    return null
-}
 
 //Form values type
 type FormValues = {
