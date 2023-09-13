@@ -98,7 +98,7 @@ export default function TaskEditPage() {
     return (
         <FormPage
             id='task-edit-form'
-            // validationSchema={FormSchema}
+            validationSchema={FormSchema}
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >

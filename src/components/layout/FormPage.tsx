@@ -1,6 +1,7 @@
 //Core
 import { PropsWithChildren } from 'react'
 import { Formik, Form, FormikValues } from 'formik'
+import * as Yup from 'yup'
 
 //Components
 import Page from './Page'
@@ -11,6 +12,7 @@ type FormPageProps<FormValuesT extends FormikValues> = {
     id: string
     autoSave?: boolean
     initialValues: FormValuesT
+    validationSchema?: Yup.ObjectSchema<FormValuesT>
     onSubmit: (values: FormValuesT) => void
 }
 
@@ -19,6 +21,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
     children, 
     autoSave = false, 
     initialValues,
+    validationSchema = undefined,
     onSubmit = () => {}
 }: PropsWithChildren<FormPageProps<FormValuesT>>) {
     return (
@@ -32,6 +35,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
             }
         >
             <Formik
+                validationSchema={validationSchema}
                 initialValues={initialValues}
                 onSubmit={onSubmit}
             >
