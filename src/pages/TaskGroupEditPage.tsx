@@ -14,9 +14,8 @@ import { TaskGroupDispatch } from 'state/taskGroupReducer'
 
 //Components
 import TextInput from 'components/input/TextInput'
-import Page from 'components/layout/Page'
+import FormPage from 'components/layout/FormPage'
 import TimeInput from 'components/input/TimeInput'
-import BackButton from 'components/buttons/BackButton'
 import DeleteButton from 'components/buttons/DeleteButton'
 import ColorInput from 'components/input/ColorInput'
 
@@ -101,13 +100,13 @@ export default function TaskGroupEditPage() {
             return getTaskGroupById(state.id)
         }
         return null
-    }, [])
+    }, [state?.id])
     
     //#TODO: Change dispatch to useTaskGroups()
     const dispatchTaskGroups: TaskGroupDispatch = useContext(TaskGroupDispatchContext)
 
     //Handle submit of form
-    const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+    const handleSubmit = (values: FormValues) => {
 
         const data = {
             name: values.name,
@@ -120,7 +119,6 @@ export default function TaskGroupEditPage() {
 
         //If ID param passed, update task group
         if (state && state.id) {
-            console.log('updating group')
             dispatchTaskGroups({
                 type: 'update',
                 data: {
@@ -179,39 +177,26 @@ export default function TaskGroupEditPage() {
     /*eslint-enable */
 
     return (
-        <Page
-            headerLeft={(
-                <BackButton />
-            )}
-            headerRight={(
-                <button form='task-group-edit' type='submit'>Save</button>
-            )}
+        <FormPage<FormValues>
+            id='task-group-edit-form'
+            validationSchema={FormSchema}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
         >
-            <Formik
-                validationSchema={FormSchema}
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-            >
-                <Form
-                    id='task-group-edit'
-                    className='flex flex-col gap-m'
-                >
-                    {/* Group name field */}
-                    <TextInput
-                        label='Group name'
-                        name='name'
-                    />
-                    {/* Time field */}
-                    <TimeInput
-                        label='Time'
-                        name='time'
-                    />
-                    <ColorInput
-                        label='Color'
-                        name='color'
-                    />
-                </Form>
-            </Formik>
+            {/* Group name field */}
+            <TextInput
+                label='Group name'
+                name='name'
+            />
+            {/* Time field */}
+            <TimeInput
+                label='Time'
+                name='time'
+            />
+            <ColorInput
+                label='Color'
+                name='color'
+            />
             {/* If existing group, render 'delete' button */}
             {state?.id ? 
                 <DeleteButton 
@@ -219,6 +204,6 @@ export default function TaskGroupEditPage() {
                     onClick={handleDeleteButtonClick}
                 />
             : null }
-        </Page>
+        </FormPage>
     )
 }
