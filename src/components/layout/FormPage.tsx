@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 
 //Components
 import Page from './Page'
+import FormAutoSave from 'components/misc/FormAutoSave'
 
 type FormPageProps<FormValuesT> = {
     autoSave: false
@@ -25,8 +26,8 @@ export default function FormPage<FormValuesT>( {
             >
                 <Form>
                     {/* Component to enable auto-save */}
-                    { autoSave ? null : null }{/* #TODO: add AutoSave component*/}
-                    {/* Font size */}
+                    { autoSave ? <FormAutoSave /> : null }{/* #TODO: add AutoSave component*/}
+                    {/* Fields here */}
                     { children }
                 </Form>
             </Formik>
