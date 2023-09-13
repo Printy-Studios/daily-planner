@@ -100,7 +100,7 @@ export default function TaskGroupEditPage() {
             return getTaskGroupById(state.id)
         }
         return null
-    }, [])
+    }, [state?.id])
     
     //#TODO: Change dispatch to useTaskGroups()
     const dispatchTaskGroups: TaskGroupDispatch = useContext(TaskGroupDispatchContext)
@@ -119,7 +119,6 @@ export default function TaskGroupEditPage() {
 
         //If ID param passed, update task group
         if (state && state.id) {
-            console.log('updating group')
             dispatchTaskGroups({
                 type: 'update',
                 data: {
