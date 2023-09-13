@@ -1,23 +1,23 @@
 //Core
 import { PropsWithChildren } from 'react'
-import { Formik, Form } from 'formik'
+import { Formik, Form, FormikValues } from 'formik'
 
 //Components
 import Page from './Page'
 import FormAutoSave from 'components/misc/FormAutoSave'
 import BackButton from 'components/buttons/BackButton'
 
-type FormPageProps<FormValuesT> = {
+type FormPageProps<FormValuesT extends FormikValues> = {
     id: string
-    autoSave: false
+    autoSave?: boolean
     initialValues: FormValuesT
     onSubmit: (values: FormValuesT) => void
 }
 
-export default function FormPage<FormValuesT>( { 
+export default function FormPage<FormValuesT extends FormikValues>( { 
     id,
     children, 
-    autoSave, 
+    autoSave = false, 
     initialValues,
     onSubmit = () => {}
 }: PropsWithChildren<FormPageProps<FormValuesT>>) {

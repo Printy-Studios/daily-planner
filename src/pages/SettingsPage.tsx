@@ -10,6 +10,7 @@ import Select from 'components/input/Select'
 import Page from 'components/layout/Page'
 import BackButton from 'components/buttons/BackButton'
 import FormAutoSave from 'components/misc/FormAutoSave'
+import FormPage from 'components/layout/FormPage'
 
 //State
 import SettingsContext from 'state/SettingsContext'
@@ -51,58 +52,53 @@ export default function SettingsPage() {
     }
 
     return (
-        <Page
-            headerLeft={
-                <BackButton />
-            }
+        <FormPage<FormValues>
+            id='settings-form'
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            autoSave
+            // headerLeft={
+            //     <BackButton />
+            // }
         >
-            <Formik
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-            >
-                <Form>
-                    {/* Component to enable auto-save */}
-                    <FormAutoSave />
-                    {/* Font size */}
-                    <Select
-                        label='Font size'
-                        name='font_size'
-                        options={[
-                            {
-                                label: 'Small',
-                                value: 'S'
-                            },
-                            {
-                                label: 'Regular',
-                                value: 'M'
-                            },
-                            {
-                                label: 'Large',
-                                value: 'L'
-                            },
-                            {
-                                label: 'Extra Large',
-                                value: 'XL'
-                            }
-                        ]}
-                    />
-                    {/* Theme */}
-                    <Select
-                        label='Theme'
-                        name='theme'
-                        options={[
-                            {
-                                label: 'Dark',
-                                value: 'DARK'
-                            },
-                            {
-                                label: 'Light',
-                                value: 'LIGHT'
-                            }
-                        ]}
-                    />
-                </Form>
-            </Formik>
-        </Page>
+            {/* Font size */}
+            <Select
+                label='Font size'
+                name='font_size'
+                options={[
+                    {
+                        label: 'Small',
+                        value: 'S'
+                    },
+                    {
+                        label: 'Regular',
+                        value: 'M'
+                    },
+                    {
+                        label: 'Large',
+                        value: 'L'
+                    },
+                    {
+                        label: 'Extra Large',
+                        value: 'XL'
+                    }
+                ]}
+            />
+            {/* Theme */}
+            <Select
+                label='Theme'
+                name='theme'
+                options={[
+                    {
+                        label: 'Dark',
+                        value: 'DARK'
+                    },
+                    {
+                        label: 'Light',
+                        value: 'LIGHT'
+                    }
+                ]}
+            />
+        </FormPage>
     )
 }
