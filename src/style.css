@@ -566,6 +566,20 @@ form {
   background-color: var(--background);
 }
 
+/* Input */
+
+select {
+  padding: 8px;
+  padding-right: 34px;
+  appearance: none;
+  background-image: url('./icons/chevron-down.svg');
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: calc(100% - 6px) center;
+  box-sizing: border-box;
+  width: fit-content
+}
+
 /* Typography */
 
 .extra-text {
