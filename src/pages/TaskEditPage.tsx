@@ -1,17 +1,19 @@
 //Core
 import { useMemo } from 'react'
 import * as Yup from 'yup';
-import { Form, Formik } from 'formik'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 //Components
 import TextInput from 'components/input/TextInput'
-import Page from 'components/layout/Page'
 import TextArea from 'components/input/TextArea'
-import BackButton from 'components/buttons/BackButton'
-import { useLocation, useNavigate } from 'react-router-dom'
 import DeleteButton from 'components/buttons/DeleteButton';
 import Select from 'components/input/Select';
+import FormPage from 'components/layout/FormPage';
+
+//Functions
 import useTasks from 'functions/useTasks';
+
+//Types
 import { Task, TaskType } from 'types/Task';
 
 type FormValues = {
@@ -94,52 +96,38 @@ export default function TaskEditPage() {
     }
 
     return (
-        <Page
-            headerLeft={
-                <BackButton />
-            }
-
-            headerRight={
-                <button form='task-edit' type='submit'>Save</button>
-            }
+        <FormPage
+            id='task-edit-form'
+            // validationSchema={FormSchema}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
         >
-            <Formik
-                validationSchema={FormSchema}
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-            >
-                <Form
-                    id='task-edit'
-                    className='flex flex-col gap-m'
-                >
-                    {/* Task name field */}
-                    <TextInput
-                        label='Name'
-                        name='name'
-                    />
-                    {/* Task type field */}
-                    <Select
-                        label='Type'
-                        name='type'
-                        options={[
-                            {
-                                label: 'Task',
-                                value: TaskType.TASK
-                            },
-                            {
-                                label: 'Note',
-                                value: TaskType.NOTE
-                            }
-                        ]}
-                    />
-                    {/* Task description field */}
-                    <TextArea
-                        label='Description'
-                        name='description'
-                        rows={6}
-                    />
-                </Form>
-            </Formik>
+            {/* Task name field */}
+            <TextInput
+                label='Name'
+                name='name'
+            />
+            {/* Task type field */}
+            <Select
+                label='Type'
+                name='type'
+                options={[
+                    {
+                        label: 'Task',
+                        value: TaskType.TASK
+                    },
+                    {
+                        label: 'Note',
+                        value: TaskType.NOTE
+                    }
+                ]}
+            />
+            {/* Task description field */}
+            <TextArea
+                label='Description'
+                name='description'
+                rows={6}
+            />
             {/* If in 'edit' mode, render 'delete' button */}
             {state?.id !== null ? 
                 <DeleteButton 
@@ -147,6 +135,6 @@ export default function TaskEditPage() {
                     onClick={handleDeleteButtonClick}
                 />
             : null }
-        </Page>
+        </FormPage>
     )
 }
