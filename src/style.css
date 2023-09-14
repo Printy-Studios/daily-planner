@@ -577,7 +577,20 @@ select {
   background-size: 24px;
   background-position: calc(100% - 6px) center;
   box-sizing: border-box;
-  width: fit-content
+  width: fit-content;
+  font-size: 0.9rem;
+}
+
+input { 
+  font-size: 0.9rem;
+}
+
+textarea {
+  font-size: 0.9rem;
+}
+
+button {
+  font-size: 0.9rem;
 }
 
 /* Typography */
