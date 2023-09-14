@@ -28,6 +28,14 @@ export default function useTaskGroups() {
                 }
             })
         },
+        updateTaskGroup: (data: TaskGroupPartial) => {
+            dispatchTaskGroups({
+                type: 'update',
+                data: {
+                    ...data
+                }
+            })
+        },
         /**
          * Get task group by id. Throws error if not found.
          * @param {ID} id ID of task group.
