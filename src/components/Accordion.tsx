@@ -1,14 +1,15 @@
 import { 
     ReactNode,
-    useState
+    useState,
+    HTMLAttributes
 } from 'react'
 
-type Props = {
+type Props = HTMLAttributes<HTMLDivElement> & {
     header: ReactNode,
-    content: ReactNode
+    contents: ReactNode
 }
 
-export default function Accordion( {header, content}: Props ) {
+export default function Accordion( { style, header, contents }: Props ) {
 
     const [isShown, setIsShown] = useState<boolean>(false)
 
@@ -17,7 +18,9 @@ export default function Accordion( {header, content}: Props ) {
     }
     
     return (
-        <div>
+        <div
+            style={style}
+        >
             <div
                 onClick={handleHeaderClick}
             >
@@ -28,7 +31,7 @@ export default function Accordion( {header, content}: Props ) {
                     display: isShown ? 'flex' : 'none'
                 }}
             >
-                {content}
+                {contents}
             </div>
         </div>
     )

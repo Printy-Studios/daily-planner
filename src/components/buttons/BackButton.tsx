@@ -14,7 +14,7 @@ export default function BackButton() {
     return (
         <IconButton
             onClick={handleClick}
-            icon={<ArrowLeftIcon className='w-xs-1/2 h-xs-1/2'/>}
+            icon={<ArrowLeftIcon className='icon'/>}
         />
     )
 }

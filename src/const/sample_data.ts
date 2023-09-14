@@ -1,7 +1,12 @@
+//Types
 import { Task, TaskType } from 'types/Task'
 import TaskGroup from 'types/TaskGroup'
 
+/*
+    Sample data used for testing/debug.
+*/
 
+//Task groups.
 const sample_task_groups: TaskGroup[] = [
     {
         id: 0,
@@ -9,7 +14,9 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 12,
             mins: 10
-        }
+        },
+        date: new Date(),
+        color: '#ababab'
     },
     {
         id: 1,
@@ -17,7 +24,9 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 6,
             mins: 20
-        }
+        },
+        date: new Date(),
+        color: '#ababab'
     },
     {
         id: 2,
@@ -25,7 +34,9 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 16,
             mins: 0
-        }
+        },
+        date: new Date(),
+        color: '#ababab'
     },
     {
         id: 3,
@@ -33,34 +44,37 @@ const sample_task_groups: TaskGroup[] = [
         time: {
             hrs: 20,
             mins: 30
-        }
+        },
+        date: new Date(),
+        color: '#ababab'
     }
 ]
 
+//Tasks.
 const sample_tasks:Task[] = [
     {
         id: 0,
         type: TaskType.TASK,
-        title: 'Task #1',
+        name: 'Task #1',
         group_id: 0
     },
     {
         id: 1,
         type: TaskType.NOTE,
-        title: 'Note #1',
+        name: 'Note #1',
         group_id: 0,
         description: 'Some description for note'
     },
     {
         id: 2,
         type: TaskType.TASK,
-        title: 'Task #3',
+        name: 'Task #3',
         group_id: 1
     },
     {
         id: 3,
         type: TaskType.TASK,
-        title: 'Task #4',
+        name: 'Task #4',
         group_id: 0
     }
 ]
