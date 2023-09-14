@@ -38,6 +38,10 @@ export default function useTaskGroups() {
                 throw new Error('Could not find task group by id' + id)
             }
         },
+        /**
+         * Create new task group from data
+         * @param { TaskGroupNoID } data Task group to create 
+         */
         createTaskGroup: (data: TaskGroupNoID) => {
             dispatchTaskGroups({
                 type: 'create',
@@ -46,6 +50,10 @@ export default function useTaskGroups() {
                 }
             })
         },
+        /**
+         * Update task group from data
+         * @param { TaskGroupPartial } data Task group to update. Only `id` required
+         */
         updateTaskGroup: (data: TaskGroupPartial) => {
             dispatchTaskGroups({
                 type: 'update',
@@ -54,6 +62,10 @@ export default function useTaskGroups() {
                 }
             })
         },
+        /**
+         * Delete task group
+         * @param { TaskGroupPartial } data Task group to delete. Only `id` required
+         */
         deleteTaskGroup: (data: TaskGroupPartial) => {
             dispatchTaskGroups({
                 type: 'delete',
@@ -62,6 +74,10 @@ export default function useTaskGroups() {
                 }
             })
         },
+        /**
+         * Set state of all task groups to the provided array of task groups
+         * @param { TaskGroup[] } data Task groups to set the state to
+         */
         setAllTaskGroups: (data: TaskGroup[]) => {
             dispatchTaskGroups({
                 type: 'set-all',
