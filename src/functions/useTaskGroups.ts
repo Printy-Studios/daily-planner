@@ -19,6 +19,25 @@ export default function useTaskGroups() {
     const dispatchTaskGroups = useContext(TaskGroupDispatchContext)
     
     return {
+        /**
+         * Get task group by id. Throws error if not found.
+         * @param {ID} id ID of task group.
+         * 
+         * @returns {TaskGroup} Task group with matching id.
+         */
+        getTaskGroupById: (id: ID): TaskGroup => {
+            //Find task group by id from all task groups
+            const task_group = taskGroups.find( group => group.id === id);
+
+            
+            if (task_group) {
+                //If task group found, return it
+                return task_group;
+            } else {
+                //Otherwise throw error
+                throw new Error('Could not find task group by id' + id)
+            }
+        },
         createTaskGroup: (data: TaskGroupNoID) => {
             dispatchTaskGroups({
                 type: 'create',
@@ -49,24 +68,6 @@ export default function useTaskGroups() {
                 data
             })
         },
-        /**
-         * Get task group by id. Throws error if not found.
-         * @param {ID} id ID of task group.
-         * 
-         * @returns {TaskGroup} Task group with matching id.
-         */
-        getTaskGroupById: (id: ID): TaskGroup => {
-            //Find task group by id from all task groups
-            const task_group = taskGroups.find( group => group.id === id);
-
-            
-            if (task_group) {
-                //If task group found, return it
-                return task_group;
-            } else {
-                //Otherwise throw error
-                throw new Error('Could not find task group by id' + id)
-            }
-        }
+        
     }
 }
