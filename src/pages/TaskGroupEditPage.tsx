@@ -93,7 +93,12 @@ export default function TaskGroupEditPage() {
     //Hooks
     const { state }: { state: RouteState } = useLocation();
     const navigate = useNavigate();
-    const { getTaskGroupById } = useTaskGroups();
+    const { 
+        getTaskGroupById,
+        createTaskGroup,
+        updateTaskGroup,
+        deleteTaskGroup
+    } = useTaskGroups();
 
     const task_group = useMemo(() => {
         if (state?.id != null && state?.id !== undefined) {
@@ -101,9 +106,6 @@ export default function TaskGroupEditPage() {
         }
         return null
     }, [state?.id])
-    
-    //#TODO: Change dispatch to useTaskGroups()
-    const dispatchTaskGroups: TaskGroupDispatch = useContext(TaskGroupDispatchContext)
 
     //Handle submit of form
     const handleSubmit = (values: FormValues) => {
@@ -119,21 +121,13 @@ export default function TaskGroupEditPage() {
 
         //If ID param passed, update task group
         if (state && state.id) {
-            dispatchTaskGroups({
-                type: 'update',
-                data: {
-                    id: state.id,
-                    ...data
-                }
+            updateTaskGroup({
+                id: state.id,
+                ...data
             })
         } else { //Otherwise create a new one
             console.log('creating new group')
-            dispatchTaskGroups({
-                type: 'create',
-                data: {
-                    ...data
-                }
-            })
+            createTaskGroup(data)
         }
         //Finally, navigate back to the Schedule page
         navigate('/');
@@ -142,11 +136,8 @@ export default function TaskGroupEditPage() {
     //Handle 'delete' button click
     const handleDeleteButtonClick = () => {
         //#TODO: Consider adding an ID check to make sure that task group exists
-        dispatchTaskGroups({
-            type: 'delete',
-            data: {
-                id: state.id!
-            }
+        deleteTaskGroup({
+            id: state.id!
         })
         //After deleting task group, navigate back to the Schedule page
         navigate('/')
