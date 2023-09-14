@@ -4,6 +4,7 @@ import { useContext } from 'react';
 //Types
 import TaskGroup from 'types/TaskGroup';
 import { ID } from 'types/UtilTypes';
+import { TaskGroupNoID } from 'types/TaskGroup';
 
 //State
 import { TaskGroupContext } from 'state/TaskGroupContext';
@@ -19,7 +20,7 @@ export default function useTaskGroups() {
     const dispatchTaskGroups = useContext(TaskGroupDispatchContext)
     
     return {
-        createTaskGroup: (data: TaskGroupOptional) => {
+        createTaskGroup: (data: TaskGroupNoID) => {
             dispatchTaskGroups({
                 type: 'create',
                 data: {
