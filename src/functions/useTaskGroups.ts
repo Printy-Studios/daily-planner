@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 
 //Types
-import TaskGroup, { TaskGroupNoID, TaskGroupOptional } from 'types/TaskGroup';
+import TaskGroup, { TaskGroupNoID, TaskGroupPartial } from 'types/TaskGroup';
 import { ID } from 'types/UtilTypes';
 
 //State
