@@ -35,6 +35,14 @@ export default function useTaskGroups() {
                 }
             })
         },
+        deleteTaskGroup: (data: TaskGroupPartial) => {
+            dispatchTaskGroups({
+                type: 'delete',
+                data: {
+                    id: data.id
+                }
+            })
+        },
         /**
          * Get task group by id. Throws error if not found.
          * @param {ID} id ID of task group.
