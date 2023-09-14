@@ -7,6 +7,7 @@ import { ID } from 'types/UtilTypes';
 
 //State
 import { TaskGroupContext } from 'state/TaskGroupContext';
+import { TaskGroupDispatchContext } from 'state/TaskGroupContext';
 
 /**
  * Hook that lets you access and modify task groups.
@@ -15,8 +16,17 @@ export default function useTaskGroups() {
 
     //All task groups
     const taskGroups = useContext(TaskGroupContext)
+    const dispatchTaskGroups = useContext(TaskGroupDispatchContext)
     
     return {
+        createTaskGroup: (data: TaskGroupOptional) => {
+            dispatchTaskGroups({
+                type: 'create',
+                data: {
+                    ...data
+                }
+            })
+        },
         /**
          * Get task group by id. Throws error if not found.
          * @param {ID} id ID of task group.
