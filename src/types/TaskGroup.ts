@@ -11,13 +11,13 @@ type TaskGroup = {
     color: string //Color of the task group as displayed in task group lists
 }
 
-type TaskGroupOptional = Omit<Partial<TaskGroup>, 'id'> & {id: ID}
+type TaskGroupPartial = Omit<Partial<TaskGroup>, 'id'> & {id: ID}
 
 type TaskGroupNoID = Omit<TaskGroup, 'id'>
 
 export { 
     type TaskGroupNoID, 
-    type TaskGroupOptional 
+    type TaskGroupPartial
 }
 
 export default TaskGroup
