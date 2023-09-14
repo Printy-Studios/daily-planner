@@ -43,6 +43,12 @@ export default function useTaskGroups() {
                 }
             })
         },
+        setAllTaskGroups: (data: TaskGroup[]) => {
+            dispatchTaskGroups({
+                type: 'set-all',
+                data
+            })
+        },
         /**
          * Get task group by id. Throws error if not found.
          * @param {ID} id ID of task group.
