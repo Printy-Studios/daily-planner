@@ -1,11 +1,15 @@
 import { PropsWithChildren, ReactNode } from 'react';
 
-type Props = {
+export type PageProps = {
     headerLeft?: ReactNode
     headerRight?: ReactNode
+    pageState: {
+        error: string | null | boolean,
+        loading: string | null | boolean
+    }
 }
 
-export default function Page({ children, headerLeft, headerRight }: PropsWithChildren<Props>) {
+export default function Page({ children, headerLeft, headerRight, pageState }: PropsWithChildren<PageProps>) {
     return (
         <div
             className='flex flex-col h-full page'
@@ -23,7 +27,13 @@ export default function Page({ children, headerLeft, headerRight }: PropsWithChi
                 </div>
             : null}
             <div className='flex flex-col flex-grow p-s gap-m page-content'>
-                {children}
+                {
+                    pageState.error ? "An error has occured" + (typeof pageState.error === 'string' ? pageState.error : "")
+                :
+                    pageState.loading ? (typeof pageState.loading === 'string' ? pageState.loading : "Loading")
+                :
+                    children
+                }
             </div>
             
         </div>

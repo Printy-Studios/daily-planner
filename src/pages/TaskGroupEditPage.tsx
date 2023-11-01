@@ -1,16 +1,11 @@
 //Core
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Formik, FormikHelpers, Form } from 'formik'
 import * as Yup from 'yup';
 
 //Types
 import Time from 'types/Time'
 import TaskGroup from 'types/TaskGroup'
-
-//State
-import { TaskGroupDispatchContext } from 'state/TaskGroupContext'
-import { TaskGroupDispatch } from 'state/taskGroupReducer'
 
 //Components
 import TextInput from 'components/input/TextInput'
@@ -21,6 +16,7 @@ import ColorInput from 'components/input/ColorInput'
 
 //Functions
 import useTaskGroups from 'functions/useTaskGroups'
+import usePage from 'functions/usePage';
 
 //Form values type
 type FormValues = {
@@ -99,6 +95,7 @@ export default function TaskGroupEditPage() {
         updateTaskGroup,
         deleteTaskGroup
     } = useTaskGroups();
+    const { pageState } = usePage();
 
     const task_group = useMemo(() => {
         if (state?.id != null && state?.id !== undefined) {
@@ -173,6 +170,7 @@ export default function TaskGroupEditPage() {
             validationSchema={FormSchema}
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            pageState={pageState}
         >
             {/* Group name field */}
             <TextInput

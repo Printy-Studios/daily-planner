@@ -1,24 +1,18 @@
 //Core
-import { useContext, useEffect, useMemo } from 'react'
-import { Formik, Form, useFormikContext } from 'formik'
+import { useContext, useMemo } from 'react'
 
 //Types
 import { FontSize, ThemeOption } from 'types/Settings'
 
 //Components
 import Select from 'components/input/Select'
-import Page from 'components/layout/Page'
-import BackButton from 'components/buttons/BackButton'
-import FormAutoSave from 'components/misc/FormAutoSave'
 import FormPage from 'components/layout/FormPage'
 
 //State
 import SettingsContext from 'state/SettingsContext'
 
-//Props
-//type Props = {}
-
-
+//Functions
+import usePage from 'functions/usePage'
 
 //Form values type
 type FormValues = {
@@ -30,6 +24,9 @@ type FormValues = {
  * Settings page. This is the top level page for the settings
  */
 export default function SettingsPage() {
+
+    //Hooks
+    const { pageState } = usePage();
 
     //State
     const { settings, updateSettings } = useContext(SettingsContext)
@@ -57,6 +54,7 @@ export default function SettingsPage() {
             initialValues={initialValues}
             onSubmit={handleSubmit}
             autoSave
+            pageState={pageState}
             // headerLeft={
             //     <BackButton />
             // }
