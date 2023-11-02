@@ -14,7 +14,7 @@ const constant = {
 const themes: Record<ThemeOption, Theme> = {
     DARK: {
         color: {
-            primary: '#e0e0e0',
+            primary: '#34a1eb',
             secondary: '#2b2b2b',
             background: '#404040',
             "on-background": '#ffffff',
@@ -24,7 +24,7 @@ const themes: Record<ThemeOption, Theme> = {
     },
     LIGHT: {
         color: {
-            primary: '#d6d6d6',
+            primary: '#34a1eb',
             secondary: '#ededed',
             background: '#ffffff',
             "on-background": '#000000',
