@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import Page, { PageProps } from './Page'
 import FormAutoSave from 'components/misc/FormAutoSave'
 import BackButton from 'components/buttons/BackButton'
+import Button from 'components/buttons/Button'
 
 type FormPageProps<FormValuesT extends FormikValues> = PageProps & {
     id: string
@@ -33,7 +34,8 @@ export default function FormPage<FormValuesT extends FormikValues>( {
             }
             headerRight={
                 autoSave ? null :
-                <button form={id} type='submit'>Save</button>
+                <Button form={id} type='submit' variant='primary'>Save</Button>
+                // <button form={id} type='submit'>Save</button>
             }
             pageState={pageState}
         >
