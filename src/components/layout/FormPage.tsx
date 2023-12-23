@@ -42,6 +42,8 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                 <BackButton />
             }
             headerRight={
+                isSaving ? 
+                'Saving...' :
                 autoSave ? null :
                 <Button 
                     form={id} 
@@ -63,18 +65,18 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                 { props => {
                     //Get whether form has been modified to disable/enable save button
                     setIsModified(props.dirty)
-                        return (
-                            <Form
-                                id={id}
-                            >
-                                {/* Component to enable auto-save */}
-                                { autoSave ? <FormAutoSave /> : null }{/* #TODO: add AutoSave component*/}
-                                {/* Fields here */}
-                                { children }
-                            </Form>
-                        )
-                    }
-                }
+                    setIsSaving(props.isSubmitting)
+                    return (
+                        <Form
+                            id={id}
+                        >
+                            {/* Component to enable auto-save */}
+                            { autoSave ? <FormAutoSave /> : null }{/* #TODO: add AutoSave component*/}
+                            {/* Fields here */}
+                            { children }
+                        </Form>
+                    )
+                }}
                 
             </Formik>
 
