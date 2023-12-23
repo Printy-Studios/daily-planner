@@ -1,6 +1,6 @@
 //Core
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react'
-import { Formik, Form, FormikValues } from 'formik'
+import { Formik, Form, FormikValues, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
 //Components
@@ -27,12 +27,14 @@ export default function FormPage<FormValuesT extends FormikValues>( {
     onSubmit = () => {}
 }: PropsWithChildren<FormPageProps<FormValuesT>>) {
 
-    // const onSubmitWrapper = useCallback((values: FormValuesT) => {
-
-    //     onSubmit(values)
-    // }, [])
+    const onSubmitWrapper = useCallback((values: FormValuesT, actions: FormikHelpers<FormValuesT>) => {
+        onSubmit(values)
+        actions.setSubmitting(false);
+    }, [])
 
     const [isModified, setIsModified] = useState<boolean>(false);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
+
 
     return (
         <Page
@@ -40,6 +42,8 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                 <BackButton />
             }
             headerRight={
+                isSaving ? 
+                'Saving...' :
                 autoSave ? null :
                 <Button 
                     form={id} 
@@ -56,23 +60,23 @@ export default function FormPage<FormValuesT extends FormikValues>( {
             <Formik
                 validationSchema={validationSchema}
                 initialValues={initialValues}
-                onSubmit={onSubmit}
+                onSubmit={onSubmitWrapper}
             >
                 { props => {
                     //Get whether form has been modified to disable/enable save button
                     setIsModified(props.dirty)
-                        return (
-                            <Form
-                                id={id}
-                            >
-                                {/* Component to enable auto-save */}
-                                { autoSave ? <FormAutoSave /> : null }{/* #TODO: add AutoSave component*/}
-                                {/* Fields here */}
-                                { children }
-                            </Form>
-                        )
-                    }
-                }
+                    setIsSaving(props.isSubmitting)
+                    return (
+                        <Form
+                            id={id}
+                        >
+                            {/* Component to enable auto-save */}
+                            { autoSave ? <FormAutoSave /> : null }{/* #TODO: add AutoSave component*/}
+                            {/* Fields here */}
+                            { children }
+                        </Form>
+                    )
+                }}
                 
             </Formik>
 
