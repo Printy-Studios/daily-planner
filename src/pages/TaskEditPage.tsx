@@ -15,6 +15,7 @@ import useTasks from 'functions/useTasks';
 
 //Types
 import { Task, TaskType } from 'types/Task';
+import usePage from 'functions/usePage';
 
 type FormValues = {
     name: string
@@ -32,6 +33,7 @@ export default function TaskEditPage() {
 
     //Hooks
     const { createTask, getTaskById, updateTask, deleteTask } = useTasks()
+    const { pageState } = usePage();
 
     //Accepted params: id and group_id
     const { state } = useLocation()
@@ -100,6 +102,7 @@ export default function TaskEditPage() {
             validationSchema={FormSchema}
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            pageState={pageState}
         >
             {/* Task name field */}
             <TextInput

@@ -7,7 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
 
-  color: var(--on-background)
+  color: var(--on-background);
+
   /* background-color: var(--background); */
 }
 
@@ -590,8 +591,22 @@ textarea {
 }
 
 button {
+  border-radius: 4px;
   font-size: 0.9rem;
+  padding-block: 8px;
+  padding-inline: 16px;
+  outline: none;
+  border: none;
 }
+
+.button-primary {
+  background-color: var(--primary);
+}
+
+/* #TODO */
+/* .button-secondary {
+
+} */
 
 /* Typography */
 

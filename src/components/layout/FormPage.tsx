@@ -4,11 +4,12 @@ import { Formik, Form, FormikValues } from 'formik'
 import * as Yup from 'yup'
 
 //Components
-import Page from './Page'
+import Page, { PageProps } from './Page'
 import FormAutoSave from 'components/misc/FormAutoSave'
 import BackButton from 'components/buttons/BackButton'
+import Button from 'components/buttons/Button'
 
-type FormPageProps<FormValuesT extends FormikValues> = {
+type FormPageProps<FormValuesT extends FormikValues> = PageProps & {
     id: string
     autoSave?: boolean
     initialValues: FormValuesT
@@ -22,6 +23,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
     autoSave = false, 
     initialValues,
     validationSchema = undefined,
+    pageState,
     onSubmit = () => {}
 }: PropsWithChildren<FormPageProps<FormValuesT>>) {
 
@@ -49,6 +51,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                 </Button>
                 // <button form={id} type='submit'>Save</button>
             }
+            pageState={pageState}
         >
             <Formik
                 validationSchema={validationSchema}

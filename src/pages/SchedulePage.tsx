@@ -14,11 +14,13 @@ import IconButton from 'components/buttons/IconButton';
 import DaySelector from 'components/input/DaySelector';
 import MiscContext from 'state/MiscContext';
 import timeToMinutes from 'functions/timeToNumber';
+import usePage from 'functions/usePage';
 
 export default function SchedulePage(){
 
     //Hooks
     const navigate = useNavigate()
+    const { pageState } = usePage();
 
     //State
     const taskGroups = useContext(TaskGroupContext)
@@ -43,6 +45,7 @@ export default function SchedulePage(){
                     }
                 />
             }
+            pageState={pageState}
         >
             {/* Day Selector */}
             <DaySelector
