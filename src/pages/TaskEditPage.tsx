@@ -65,7 +65,6 @@ export default function TaskEditPage() {
 
     //Handle submit of form
     const handleSubmit = (values: FormValues) => {
-
         //If ID param found(meaning existing task is being modified), run update
         //function on respective task with the new values
         if (state && state.id !== undefined && state.id !== null) {
