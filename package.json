@@ -46,10 +46,13 @@
       "react-app",
       "react-app/jest"
     ],
+    "rules": {
+      "react-hooks/exhaustive-dep": "off"
+    },
     "overrides": [
       {
         "files": [
-          "*"
+          "**/*.ts?(x)"
         ],
         "rules": {
           "react-hooks/exhaustive-dep": "off"
