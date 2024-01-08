@@ -8,6 +8,7 @@ import Settings, { FontSize, ThemeOption } from 'types/Settings';
 //Setting defaults.
 const settings: Settings = {
     font_size: FontSize.M,
+    default_task_group_color: '#4caf50',
     theme: ThemeOption.DARK
 }
 

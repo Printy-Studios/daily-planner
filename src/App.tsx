@@ -71,6 +71,17 @@ function App() {
     selectedDate: new Date()
   })
 
+  /**
+   * Make sure that all the settings values are defined
+   */
+  const ensureSettings = () => {
+    updateSettings({
+      ...defaults.settings,
+      ...settings,
+      
+    })
+  }
+
   //Methods
   const updateCSSVars = (themeOption: ThemeOption) => {
     const r: HTMLElement = document.querySelector(':root')!;
@@ -86,6 +97,12 @@ function App() {
       setStyleVar(`--${key}`, new_theme.color[key as keyof Theme['color']])
     })
   }
+
+  /** On mount */
+  useEffect(() => {
+    updateCSSVars(settings.theme);
+    ensureSettings();
+  }, [])
 
   //-- Update localstorage if data changes --//
   useEffect(() => {
@@ -164,9 +181,7 @@ function App() {
 
   }, [settings.theme])
 
-  useEffect(() => {
-    updateCSSVars(settings.theme);
-  }, [])
+  
 
   return (
     <div className='h-full'>

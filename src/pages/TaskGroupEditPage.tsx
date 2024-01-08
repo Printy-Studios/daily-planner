@@ -1,5 +1,5 @@
 //Core
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup';
 
@@ -17,6 +17,7 @@ import ColorInput from 'components/input/ColorInput'
 //Functions
 import useTaskGroups from 'functions/useTaskGroups'
 import usePage from 'functions/usePage';
+import SettingsContext from 'state/SettingsContext';
 
 //Form values type
 type FormValues = {
@@ -96,6 +97,7 @@ export default function TaskGroupEditPage() {
         deleteTaskGroup
     } = useTaskGroups();
     const { pageState } = usePage();
+    const {settings} = useContext(SettingsContext)
 
     const task_group = useMemo(() => {
         if (state?.id != null && state?.id !== undefined) {
@@ -155,7 +157,7 @@ export default function TaskGroupEditPage() {
         return {
             name: '',
             time: '',
-            color: '#4caf50'
+            color: settings.default_task_group_color
         }
     /* eslint-disable */
     }, [getTaskGroupById])

@@ -13,11 +13,13 @@ import SettingsContext from 'state/SettingsContext'
 
 //Functions
 import usePage from 'functions/usePage'
+import ColorInput from 'components/input/ColorInput'
 
 //Form values type
 type FormValues = {
     font_size: 'S' | 'M' | 'L' | 'XL'
     theme: 'DARK' | 'LIGHT'
+    default_task_group_color: string
 }
 
 /**
@@ -35,7 +37,8 @@ export default function SettingsPage() {
     const initialValues: FormValues = useMemo(() => {
         return {
             font_size: settings.font_size,
-            theme: settings.theme
+            theme: settings.theme,
+            default_task_group_color: settings.default_task_group_color
         }
     }, [])
 
@@ -44,7 +47,8 @@ export default function SettingsPage() {
         //Update settings with new values
         updateSettings({
             font_size: FontSize[values.font_size],
-            theme: ThemeOption[values.theme]
+            theme: ThemeOption[values.theme],
+            default_task_group_color: values.default_task_group_color
         })
     }
 
@@ -96,6 +100,10 @@ export default function SettingsPage() {
                         value: 'LIGHT'
                     }
                 ]}
+            />
+            <ColorInput 
+                name='default_task_group_color'
+                label='Default Task Group Color'
             />
         </FormPage>
     )
