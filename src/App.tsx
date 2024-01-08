@@ -79,7 +79,7 @@ function App() {
       r.style.setProperty(name, value)
     }
 
-    const new_theme: Theme = themes[settings.theme]
+    const new_theme: Theme = themes[themeOption]
 
 
     Object.keys(new_theme.color).forEach(key => {

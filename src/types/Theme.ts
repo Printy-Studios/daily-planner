@@ -6,6 +6,7 @@ type Theme = {
         "on-background": string,
         "on-background-dark": string,
         "on-primary": string,
+        'warn-medium': string
     }
 }
 

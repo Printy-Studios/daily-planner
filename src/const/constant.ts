@@ -19,7 +19,8 @@ const themes: Record<ThemeOption, Theme> = {
             background: '#404040',
             "on-background": '#ffffff',
             "on-background-dark": '#c2c2c2',
-            "on-primary": '#ffffff'
+            "on-primary": '#ffffff',
+            "warn-medium": "#f74343"
         }
     },
     LIGHT: {
@@ -29,7 +30,8 @@ const themes: Record<ThemeOption, Theme> = {
             background: '#ffffff',
             "on-background": '#000000',
             "on-background-dark": '#595959',
-            "on-primary": '#TODO'
+            "on-primary": '#TODO',
+            "warn-medium": "#d60202"
         }
     }
 }

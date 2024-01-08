@@ -114,8 +114,6 @@ export default function TaskGroupEditPage() {
             date: (task_group && task_group.date) || state.date
         }
 
-        //console.log(data)
-
         //If ID param passed, update task group
         if (state && state.id) {
             updateTaskGroup({
@@ -123,7 +121,6 @@ export default function TaskGroupEditPage() {
                 ...data
             })
         } else { //Otherwise create a new one
-            console.log('creating new group')
             createTaskGroup(data)
         }
         //Finally, navigate back to the Schedule page

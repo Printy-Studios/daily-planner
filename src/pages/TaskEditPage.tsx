@@ -68,7 +68,6 @@ export default function TaskEditPage() {
         //If ID param found(meaning existing task is being modified), run update
         //function on respective task with the new values
         if (state && state.id !== undefined && state.id !== null) {
-            console.log('updating task')
             updateTask({
                 id: state.id,
                 name: values.name,
