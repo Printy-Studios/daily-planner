@@ -25,7 +25,7 @@ type Action = CreateAction | DeleteAction | UpdateAction
  * Get a non-clashing ID for a task 
  * @param all_task_groups all of the tasks
  */
- const getMaxID = (all_tasks: TaskGroup[]) => {
+ const getMaxID = (all_tasks: Task[]) => {
     let max_id = 0;
     for(const task of all_tasks) {
         if(task.id >= max_id) {
