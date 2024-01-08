@@ -643,6 +643,10 @@ textarea {
 
 /* Typography */
 
+.task-text-checked {
+  text-decoration: line-through;
+}
+
 .extra-text {
   font-size: 0.8rem;
   color: var(--on-background-dark)
