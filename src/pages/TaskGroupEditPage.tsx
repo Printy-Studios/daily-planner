@@ -112,7 +112,7 @@ export default function TaskGroupEditPage() {
     const initialValues: FormValues = useMemo(() => {
         //If ID param passed, use values from the task group with such ID
         if (state?.id != null && state?.id !== undefined) {
-            const task_group: TaskGroup = getTaskGroupById(state.id)
+            const task_group: TaskGroup = getTaskGroupById(state.id)!
 
             return {
                 name: task_group.name,
