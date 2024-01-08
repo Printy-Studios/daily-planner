@@ -6,10 +6,10 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
     outline?: boolean
 }
 
-export default function Button( { outline, variant = 'secondary', ...props }: Props) {
+export default function Button( { outline, variant = 'secondary', className, ...props }: Props) {
     return (
         <button
-            className={`${ outline ? 'button-outline' : ''} ${ variant === 'primary' ? 'button-primary' : 'button-secondary'}`}
+            className={`${className} ${ outline ? 'button-outline' : ''} ${ variant === 'primary' ? 'button-primary' : 'button-secondary'}`}
             {...props}
         >
 

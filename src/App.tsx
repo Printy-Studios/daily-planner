@@ -83,7 +83,6 @@ function App() {
 
 
     Object.keys(new_theme.color).forEach(key => {
-      console.log(key)
       setStyleVar(`--${key}`, new_theme.color[key as keyof Theme['color']])
     })
   }

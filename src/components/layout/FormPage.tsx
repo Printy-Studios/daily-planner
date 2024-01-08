@@ -33,6 +33,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
     }, [])
 
     const [isModified, setIsModified] = useState<boolean>(false);
+    const [isValid, setIsValid] = useState<boolean>(false);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
 
@@ -49,7 +50,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                     form={id} 
                     type='submit' 
                     variant='primary'
-                    disabled={!isModified}
+                    className={`${!isModified || !isValid ? 'button-disabled' : ''}`}
                 >
                     Save
                 </Button>
@@ -65,6 +66,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                 { props => {
                     //Get whether form has been modified to disable/enable save button
                     setIsModified(props.dirty)
+                    setIsValid(props.isValid)
                     setIsSaving(props.isSubmitting)
                     return (
                         <Form

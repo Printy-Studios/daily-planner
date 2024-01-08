@@ -418,6 +418,23 @@ code {
   cursor: pointer;
 }
 
+.primary-button {
+  color: var(--on-primary)
+}
+
+button {
+  border-radius: 4px;
+  font-size: 0.9rem;
+  padding-block: 8px;
+  padding-inline: 16px;
+  outline: none;
+  border: none;
+}
+
+.button-primary {
+  background-color: var(--primary);
+}
+
 .button-outline {
   background: transparent;
   border-width: 1;
@@ -427,6 +444,12 @@ code {
 .button-outline-warn-medium {
   background-color: transparent;
   border: 1px solid var(--warn-medium);
+}
+
+.button-disabled {
+  background-color: transparent;
+  border: 1px solid dimgray;
+  color: dimgray
 }
 
 /* Transition */
@@ -556,10 +579,6 @@ form {
   background-color: var(--secondary);
 }
 
-.primary-button {
-  color: var(--on-primary)
-}
-
 /* .page {
  
 } */
@@ -589,19 +608,6 @@ input {
 
 textarea {
   font-size: 0.9rem;
-}
-
-button {
-  border-radius: 4px;
-  font-size: 0.9rem;
-  padding-block: 8px;
-  padding-inline: 16px;
-  outline: none;
-  border: none;
-}
-
-.button-primary {
-  background-color: var(--primary);
 }
 
 /* #TODO */
