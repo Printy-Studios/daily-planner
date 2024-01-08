@@ -56,26 +56,30 @@ const sample_tasks:Task[] = [
         id: 0,
         type: TaskType.TASK,
         name: 'Task #1',
-        group_id: 0
+        group_id: 0,
+        completed: true,
     },
     {
         id: 1,
         type: TaskType.NOTE,
         name: 'Note #1',
         group_id: 0,
-        description: 'Some description for note'
+        description: 'Some description for note',
+        completed: false
     },
     {
         id: 2,
         type: TaskType.TASK,
         name: 'Task #3',
-        group_id: 1
+        group_id: 1,
+        completed: true
     },
     {
         id: 3,
         type: TaskType.TASK,
         name: 'Task #4',
-        group_id: 0
+        group_id: 0,
+        completed: false
     }
 ]
 

@@ -1,35 +1,34 @@
 //Core
-import { useContext, useEffect, useMemo } from 'react'
-import { Formik, Form, useFormikContext } from 'formik'
+import { useContext, useMemo } from 'react'
 
 //Types
 import { FontSize, ThemeOption } from 'types/Settings'
 
 //Components
 import Select from 'components/input/Select'
-import Page from 'components/layout/Page'
-import BackButton from 'components/buttons/BackButton'
-import FormAutoSave from 'components/misc/FormAutoSave'
 import FormPage from 'components/layout/FormPage'
 
 //State
 import SettingsContext from 'state/SettingsContext'
 
-//Props
-//type Props = {}
-
-
+//Functions
+import usePage from 'functions/usePage'
+import ColorInput from 'components/input/ColorInput'
 
 //Form values type
 type FormValues = {
     font_size: 'S' | 'M' | 'L' | 'XL'
     theme: 'DARK' | 'LIGHT'
+    default_task_group_color: string
 }
 
 /**
  * Settings page. This is the top level page for the settings
  */
 export default function SettingsPage() {
+
+    //Hooks
+    const { pageState } = usePage();
 
     //State
     const { settings, updateSettings } = useContext(SettingsContext)
@@ -38,7 +37,8 @@ export default function SettingsPage() {
     const initialValues: FormValues = useMemo(() => {
         return {
             font_size: settings.font_size,
-            theme: settings.theme
+            theme: settings.theme,
+            default_task_group_color: settings.default_task_group_color
         }
     }, [])
 
@@ -47,7 +47,8 @@ export default function SettingsPage() {
         //Update settings with new values
         updateSettings({
             font_size: FontSize[values.font_size],
-            theme: ThemeOption[values.theme]
+            theme: ThemeOption[values.theme],
+            default_task_group_color: values.default_task_group_color
         })
     }
 
@@ -57,6 +58,7 @@ export default function SettingsPage() {
             initialValues={initialValues}
             onSubmit={handleSubmit}
             autoSave
+            pageState={pageState}
             // headerLeft={
             //     <BackButton />
             // }
@@ -98,6 +100,10 @@ export default function SettingsPage() {
                         value: 'LIGHT'
                     }
                 ]}
+            />
+            <ColorInput 
+                name='default_task_group_color'
+                label='Default Task Group Color'
             />
         </FormPage>
     )

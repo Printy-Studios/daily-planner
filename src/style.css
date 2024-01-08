@@ -7,7 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
 
-  color: var(--on-background)
+  color: var(--on-background);
+
   /* background-color: var(--background); */
 }
 
@@ -30,7 +31,7 @@ code {
   --gray-darker: #717171;
 
   /* Warn */
-  --warn-medium: #d60202;
+  /* --warn-medium: #d60202; */
 
   /*
     Vars created by JS:
@@ -39,6 +40,7 @@ code {
       --primary
       --secondary
       --on-background
+      --warn-medium
   */
 
 
@@ -416,6 +418,23 @@ code {
   cursor: pointer;
 }
 
+.primary-button {
+  color: var(--on-primary)
+}
+
+button {
+  border-radius: 4px;
+  font-size: 0.9rem;
+  padding-block: 8px;
+  padding-inline: 16px;
+  outline: none;
+  border: none;
+}
+
+.button-primary {
+  background-color: var(--primary);
+}
+
 .button-outline {
   background: transparent;
   border-width: 1;
@@ -425,6 +444,12 @@ code {
 .button-outline-warn-medium {
   background-color: transparent;
   border: 1px solid var(--warn-medium);
+}
+
+.button-disabled {
+  background-color: transparent;
+  border: 1px solid dimgray;
+  color: dimgray
 }
 
 /* Transition */
@@ -469,6 +494,24 @@ code {
 
 
 /* Different approach (semantic styling instead of util-based styling) */
+
+/* Layout */
+
+.task-item-checkbox {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-self: flex-start;
+}
+
+.task-item-info {
+  margin-left: 8px;
+}
+
+.task-list-item {
+  padding-block: 8px;
+}
 
 /*.color-picker {
   -webkit-appearance: none;
@@ -516,6 +559,7 @@ code {
   width: 24px;
   height: 24px;
   border-radius: 100px;
+  padding: 0px;
   border: none;
 }
 
@@ -554,10 +598,6 @@ form {
   background-color: var(--secondary);
 }
 
-.primary-button {
-  color: var(--on-primary)
-}
-
 /* .page {
  
 } */
@@ -585,15 +625,27 @@ input {
   font-size: 0.9rem;
 }
 
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+}
+
 textarea {
   font-size: 0.9rem;
 }
 
-button {
-  font-size: 0.9rem;
-}
+
+
+/* #TODO */
+/* .button-secondary {
+
+} */
 
 /* Typography */
+
+.task-text-checked {
+  text-decoration: line-through;
+}
 
 .extra-text {
   font-size: 0.8rem;

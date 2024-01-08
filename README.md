@@ -1,46 +1,61 @@
-# Getting Started with Create React App
+# Daily Planner
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Daily Planner is a personal task-management web app that allows you to plan your schedule and tasks.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+* Create tasks
+* Create task groups and specify times for them. Task groups are automatically sorted by their time
+* Customize your task groups with custom colors
+* Accessibility
+    * Dark/Light themes
+    * Font size setting
 
-### `npm start`
+## How to use
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Task groups
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To create a task group, on the schedule(home) page click the big **+** button. You will be taken to the task group creator where you can enter details about the task group, such as name, time and color. Task groups are sorted by their time.
 
-### `npm test`
+To edit a task group, click on the edit icon on the right of the task group.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Tasks
 
-### `npm run build`
+To create a task, first expand a task group by clicking on it. Then, at the bottom right corner there will be a **+** button that you can click to create a task for that task group. In the task editor you can enter details such as task name, type and description
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To edit a task, simply click on it in the task group.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To mark a task as completed, click on the checkbox on the left side of the task
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Task types
 
-### `npm run eject`
+There are 2 task types - task and note. The only difference between them is that you can't mark a note as completed
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Settings
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+There are a few settings to help you improve your UX:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* **Theme** - This allows you to set a theme to either Dark or Light
+* **Font size** - This allows you to set the font size for easier readability.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Development
 
-## Learn More
+If you want to use this app or the code from this app in your own project, feel free to do so (MIT License).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Set up
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To set up the project, first clone/download the repo, then install the project packages using your preferred package manager (The project creator uses Yarn for this project), for example, to install with Yarn, run:
+
+```
+yarn install
+```
+
+To start the app, run the `dev` command, for example:
+
+```
+yarn run dev
+```
+
+### Contributing
+
+If you want to contribute, feel free to do so, any help is appreciated! There are no strict contribution rules but generally speaking it would be good if you opened an issue and discussed it with a maintainer before opening a PR.

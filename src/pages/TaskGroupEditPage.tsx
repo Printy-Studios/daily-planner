@@ -1,16 +1,11 @@
 //Core
-import { useContext, useMemo } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Formik, FormikHelpers, Form } from 'formik'
 import * as Yup from 'yup';
 
 //Types
 import Time from 'types/Time'
 import TaskGroup from 'types/TaskGroup'
-
-//State
-import { TaskGroupDispatchContext } from 'state/TaskGroupContext'
-import { TaskGroupDispatch } from 'state/taskGroupReducer'
 
 //Components
 import TextInput from 'components/input/TextInput'
@@ -21,6 +16,9 @@ import ColorInput from 'components/input/ColorInput'
 
 //Functions
 import useTaskGroups from 'functions/useTaskGroups'
+import usePage from 'functions/usePage';
+import SettingsContext from 'state/SettingsContext';
+import { FormikProps } from 'formik';
 
 //Form values type
 type FormValues = {
@@ -90,7 +88,7 @@ type RouteState = {
  */
 export default function TaskGroupEditPage() {
 
-    //Hooks
+    // Hooks
     const { state }: { state: RouteState } = useLocation();
     const navigate = useNavigate();
     const { 
@@ -99,13 +97,42 @@ export default function TaskGroupEditPage() {
         updateTaskGroup,
         deleteTaskGroup
     } = useTaskGroups();
+    const { pageState } = usePage();
+    const {settings} = useContext(SettingsContext)
 
+    // State
     const task_group = useMemo(() => {
         if (state?.id != null && state?.id !== undefined) {
             return getTaskGroupById(state.id)
         }
         return null
     }, [state?.id])
+
+    //Initial values of form
+    const initialValues: FormValues = useMemo(() => {
+        //If ID param passed, use values from the task group with such ID
+        if (state?.id != null && state?.id !== undefined) {
+            const task_group: TaskGroup = getTaskGroupById(state.id)!
+
+            return {
+                name: task_group.name,
+                time: timeToStr(task_group.time),
+                color: task_group.color //#TODO: Replace with actual color
+            }
+        }
+
+        //Otherwise use default values
+        //#TODO: Add default values to defaults.ts and use those here
+        return {
+            name: '',
+            time: '',
+            color: settings.default_task_group_color
+        }
+    /* eslint-disable */
+    }, [getTaskGroupById])
+    /*eslint-enable */
+
+    const [headerColor, setHeaderColor] = useState<string>(initialValues.color)
 
     //Handle submit of form
     const handleSubmit = (values: FormValues) => {
@@ -116,17 +143,14 @@ export default function TaskGroupEditPage() {
             color: values.color,
             date: (task_group && task_group.date) || state.date
         }
-
-        //console.log(data)
-
         //If ID param passed, update task group
-        if (state && state.id) {
+        if (state && typeof state.id == 'number') {
+            console.log('updating task group')
             updateTaskGroup({
                 id: state.id,
                 ...data
             })
         } else { //Otherwise create a new one
-            console.log('creating new group')
             createTaskGroup(data)
         }
         //Finally, navigate back to the Schedule page
@@ -143,29 +167,9 @@ export default function TaskGroupEditPage() {
         navigate('/')
     }
 
-    //Initial values of form
-    const initialValues: FormValues = useMemo(() => {
-        //If ID param passed, use values from the task group with such ID
-        if (state?.id != null && state?.id !== undefined) {
-            const task_group: TaskGroup = getTaskGroupById(state.id)
-
-            return {
-                name: task_group.name,
-                time: timeToStr(task_group.time),
-                color: task_group.color //#TODO: Replace with actual color
-            }
-        }
-
-        //Otherwise use default values
-        //#TODO: Add default values to defaults.ts and use those here
-        return {
-            name: '',
-            time: '',
-            color: '#4caf50'
-        }
-    /* eslint-disable */
-    }, [getTaskGroupById])
-    /*eslint-enable */
+    const onFormUpdate = (formikProps: FormikProps<FormValues>) => {
+        setHeaderColor(formikProps.values.color)
+    }
 
     return (
         <FormPage<FormValues>
@@ -173,6 +177,9 @@ export default function TaskGroupEditPage() {
             validationSchema={FormSchema}
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            pageState={pageState}
+            headerColor={headerColor}
+            onFormUpdate={onFormUpdate}
         >
             {/* Group name field */}
             <TextInput

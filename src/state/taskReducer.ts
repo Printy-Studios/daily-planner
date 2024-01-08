@@ -21,7 +21,19 @@ type DeleteAction = {
 
 type Action = CreateAction | DeleteAction | UpdateAction
 
-let max_id = 50
+/**
+ * Get a non-clashing ID for a task 
+ * @param all_task_groups all of the tasks
+ */
+ const getMaxID = (all_tasks: Task[]) => {
+    let max_id = 0;
+    for(const task of all_tasks) {
+        if(task.id >= max_id) {
+            max_id = task.id + 1;
+        }
+    }
+    return max_id
+}
 
 //Dispatch function type
 export type TaskDispatch = (action: Action) => void
@@ -30,8 +42,9 @@ export default function taskReducer(tasks: Task[], action: Action) {
     switch(action.type){
         case 'create': {
             const new_tasks: Task[] = [...tasks]
+            const max_id = getMaxID(new_tasks);
             new_tasks.push({
-                id: max_id++,
+                id: max_id,
                 ...action.data
             })
 

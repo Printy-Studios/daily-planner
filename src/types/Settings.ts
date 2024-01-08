@@ -14,6 +14,7 @@ enum ThemeOption {
 
 type Settings = {
     font_size: FontSize
+    default_task_group_color: string
     theme: ThemeOption
 }
 

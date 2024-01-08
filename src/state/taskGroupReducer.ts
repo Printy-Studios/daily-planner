@@ -28,6 +28,20 @@ type Action = CreateAction | DeleteAction | UpdateAction | SetAllAction
 
 let max_id = 10;
 
+/**
+ * Get a non-clashing ID for a task group
+ * @param all_task_groups all of the task groups
+ */
+const getMaxID = (all_task_groups: TaskGroup[]) => {
+    let max_id = 0;
+    for(const task_group of all_task_groups) {
+        if(task_group.id >= max_id) {
+            max_id = task_group.id + 1;
+        }
+    }
+    return max_id
+}
+
 //Dispatch function type
 export type TaskGroupDispatch = (action: Action) => void
 
@@ -38,9 +52,9 @@ export default function taskGroupReducer(
     switch(action.type){
         case 'create': {
             const new_task_groups: TaskGroup[] = [ ...task_groups ];
-
+            const max_id = getMaxID(new_task_groups);
             new_task_groups.push({
-                id: max_id++,
+                id: max_id,
                 ...action.data
             });
 

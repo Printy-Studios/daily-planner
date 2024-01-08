@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 //Types
-import Settings from 'types/Settings';
+import Settings, { ThemeOption } from 'types/Settings';
 
 //State
 import { TaskGroupContext, TaskGroupDispatchContext } from 'state/TaskGroupContext';
@@ -70,6 +70,39 @@ function App() {
   const [miscState, updateMiscState] = useUpdatableState<MiscState>({
     selectedDate: new Date()
   })
+
+  /**
+   * Make sure that all the settings values are defined
+   */
+  const ensureSettings = () => {
+    updateSettings({
+      ...defaults.settings,
+      ...settings,
+      
+    })
+  }
+
+  //Methods
+  const updateCSSVars = (themeOption: ThemeOption) => {
+    const r: HTMLElement = document.querySelector(':root')!;
+
+    function setStyleVar(name: string, value: string) {
+      r.style.setProperty(name, value)
+    }
+
+    const new_theme: Theme = themes[themeOption]
+
+
+    Object.keys(new_theme.color).forEach(key => {
+      setStyleVar(`--${key}`, new_theme.color[key as keyof Theme['color']])
+    })
+  }
+
+  /** On mount */
+  useEffect(() => {
+    updateCSSVars(settings.theme);
+    ensureSettings();
+  }, [])
 
   //-- Update localstorage if data changes --//
   useEffect(() => {
@@ -139,19 +172,7 @@ function App() {
 
   useEffect(() => {
 
-    const r: HTMLElement = document.querySelector(':root')!;
-
-    function setStyleVar(name: string, value: string) {
-      r.style.setProperty(name, value)
-    }
-
-    const new_theme: Theme = themes[settings.theme]
-
-
-    Object.keys(new_theme.color).forEach(key => {
-      console.log(key)
-      setStyleVar(`--${key}`, new_theme.color[key as keyof Theme['color']])
-    })
+    updateCSSVars(settings.theme);
 
     // setStyleVar('--primary', new_theme.color.primary)
     // setStyleVar('--secondary', new_theme.color.secondary)
@@ -159,6 +180,8 @@ function App() {
     // setStyleVar('--on-background', new_theme.color.onBackground)
 
   }, [settings.theme])
+
+  
 
   return (
     <div className='h-full'>

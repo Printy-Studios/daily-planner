@@ -15,6 +15,8 @@ import useTasks from 'functions/useTasks';
 
 //Types
 import { Task, TaskType } from 'types/Task';
+import usePage from 'functions/usePage';
+import useTaskGroups from 'functions/useTaskGroups';
 
 type FormValues = {
     name: string
@@ -32,11 +34,19 @@ export default function TaskEditPage() {
 
     //Hooks
     const { createTask, getTaskById, updateTask, deleteTask } = useTasks()
+    const taskGroups = useTaskGroups();
+    const { pageState } = usePage();
 
     //Accepted params: id and group_id
     const { state } = useLocation()
 
     const navigate = useNavigate()
+
+    //const initial_task = useMemo(() => getTaskById(state.id), [])
+
+    const headerColor = useMemo(() => taskGroups.getTaskGroupById(state.group_id)?.color, []);
+
+    console.log(headerColor)
     
     //Initial values of form
     const initialValues: FormValues = useMemo(() => {
@@ -44,7 +54,7 @@ export default function TaskEditPage() {
         //If ID param found(meaning that the page is in edit mode),
         //set initial values to the task with the given ID
         if (state?.id != null && state?.id !== undefined) {
-            const task: Task = getTaskById(state.id)
+            const task: Task = getTaskById(state.id)!
 
             return {
                 name: task.name,
@@ -63,11 +73,9 @@ export default function TaskEditPage() {
 
     //Handle submit of form
     const handleSubmit = (values: FormValues) => {
-
         //If ID param found(meaning existing task is being modified), run update
         //function on respective task with the new values
         if (state && state.id !== undefined && state.id !== null) {
-            console.log('updating task')
             updateTask({
                 id: state.id,
                 name: values.name,
@@ -79,7 +87,8 @@ export default function TaskEditPage() {
                 name: values.name,
                 description: values.description,
                 group_id: state.group_id,
-                type: TaskType[values.type]
+                type: TaskType[values.type],
+                completed: false
             })
         }
         //Finally, navigate back to Schedule page
@@ -101,6 +110,8 @@ export default function TaskEditPage() {
             validationSchema={FormSchema}
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            pageState={pageState}
+            headerColor={headerColor}
         >
             {/* Task name field */}
             <TextInput

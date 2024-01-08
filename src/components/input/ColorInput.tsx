@@ -20,7 +20,6 @@ export default function ColorInput( props: Props) {
     }
 
     const handleColorChange = (color: ColorResult) => {
-        // console.log(e)
         field.onChange(color.hex)
         helpers.setValue(color.hex)
 

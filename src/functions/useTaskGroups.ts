@@ -25,17 +25,19 @@ export default function useTaskGroups() {
          * 
          * @returns {TaskGroup} Task group with matching id.
          */
-        getTaskGroupById: (id: ID): TaskGroup => {
+        getTaskGroupById: (id: ID | undefined): TaskGroup | undefined => {
             //Find task group by id from all task groups
             const task_group = taskGroups.find( group => group.id === id);
 
-            
+            console.log(taskGroups)
+
             if (task_group) {
                 //If task group found, return it
                 return task_group;
             } else {
                 //Otherwise throw error
-                throw new Error('Could not find task group by id' + id)
+                return undefined;
+                //throw new Error('Could not find task group by id ' + id)
             }
         },
         /**

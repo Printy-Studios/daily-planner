@@ -61,14 +61,13 @@ export default function useTasks(){
          * 
          * @returns {Task} Task with given ID
          */
-        getTaskById: (task_id: ID): Task => {
-            const task = tasks.find(task => task.id === task_id)
+        getTaskById: (task_id: ID): Task | undefined => {
+            const task = tasks.find(task => task.id === task_id);
             if (!task) {
-                //If no task found, throw error
-                throw new Error('Could not find task with id ' + task_id)
+                return undefined;
             } else {
                 //Otherwise return task
-                return task
+                return task;
             }
         },
         /**
