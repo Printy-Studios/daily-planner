@@ -2,6 +2,8 @@
 // #TODO avoid inline styles if not used with a variable
 
 // Core
+import useTasks from 'functions/useTasks'
+import { ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // Types
@@ -21,11 +23,20 @@ function TaskListItem({ task, variant, dividerColor, showDivider = true }: TaskL
 
     // Hooks
     const navigate = useNavigate()
+    const tasks = useTasks();
 
     // Called when task item is clicked (not the checkbox)
     const handleTaskClick = () => {
         // Goto /task-edit and pass id of task as a param
         navigate('/task-edit', { state: {id: task.id} } )
+    }
+
+    // Called when checkbox is clicked
+    const handleTaskCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+        tasks.updateTask({
+            id: task.id,
+            completed: e.currentTarget.checked
+        })
     }
 
     return (
@@ -46,6 +57,8 @@ function TaskListItem({ task, variant, dividerColor, showDivider = true }: TaskL
                     <input 
                         type='checkbox' 
                         className='m-none'
+                        checked={task.completed}
+                        onChange={handleTaskCheckboxChange}
                     />
                 :   
                     <div 
@@ -60,7 +73,7 @@ function TaskListItem({ task, variant, dividerColor, showDivider = true }: TaskL
             <div className='task-item-info' onClick={handleTaskClick}>
                 {/* Title */}
                 <span
-                    className='flex border-box flex-grow'
+                    className={`flex border-box flex-grow ${task.completed ? 'task-text-checked' : ''}`}
                     style={{
                         paddingBottom: '3px',
                         color: variant === 'dark' ? '#000000' : '#ffffff'
@@ -72,7 +85,7 @@ function TaskListItem({ task, variant, dividerColor, showDivider = true }: TaskL
                 {/* Description, if there is one */}
                 {task.description ?
                     <div 
-                        className='w-full text-s text-gray-darker'
+                        className={`w-full text-s text-gray-darker ${task.completed ? 'task-text-checked' : ''}`}
                         style={{
                             color: variant === 'dark' ? '#000000' : '#b5b5b5'
                         }}

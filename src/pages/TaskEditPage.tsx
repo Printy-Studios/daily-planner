@@ -79,7 +79,8 @@ export default function TaskEditPage() {
                 name: values.name,
                 description: values.description,
                 group_id: state.group_id,
-                type: TaskType[values.type]
+                type: TaskType[values.type],
+                completed: false
             })
         }
         //Finally, navigate back to Schedule page
