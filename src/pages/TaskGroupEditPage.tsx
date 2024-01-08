@@ -143,7 +143,6 @@ export default function TaskGroupEditPage() {
             color: values.color,
             date: (task_group && task_group.date) || state.date
         }
-        console.log(state);
         //If ID param passed, update task group
         if (state && typeof state.id == 'number') {
             console.log('updating task group')
@@ -152,7 +151,6 @@ export default function TaskGroupEditPage() {
                 ...data
             })
         } else { //Otherwise create a new one
-            console.log('creating task group')
             createTaskGroup(data)
         }
         //Finally, navigate back to the Schedule page
