@@ -142,6 +142,7 @@ export default function TaskGroupList( {taskGroups}: Props) {
         <ul className='list-reset'>
             {taskGroups.map( (item, index) => (
                 <li key={item.id}>
+                    {item.id}
                     <TaskGroupListItem taskGroup={item} isLast={taskGroups.length === index} />
                 </li>
             ))}
