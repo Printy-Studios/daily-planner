@@ -495,6 +495,24 @@ button {
 
 /* Different approach (semantic styling instead of util-based styling) */
 
+/* Layout */
+
+.task-item-checkbox {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-self: flex-start;
+}
+
+.task-item-info {
+  margin-left: 8px;
+}
+
+.task-list-item {
+  padding-block: 8px;
+}
+
 /*.color-picker {
   -webkit-appearance: none;
   appearance: none;
@@ -607,9 +625,16 @@ input {
   font-size: 0.9rem;
 }
 
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+}
+
 textarea {
   font-size: 0.9rem;
 }
+
+
 
 /* #TODO */
 /* .button-secondary {

@@ -20,20 +20,22 @@ function TaskListItem({ task, variant, dividerColor, showDivider = true }: TaskL
 
     return (
         <div 
-            onClick={handleTaskClick}
             className={
-                `flex flex-row flex-wrap items-center gap-x-xs p-xxs p-l-s
+                `task-list-item flex flex-row flex-wrap items-center gap-x-xs p-xxs p-l-s
             `}
             style={{
                 borderBottom: showDivider ? `1px solid ${dividerColor}` : ''
             }}
         >
             <div 
-                className='min-w-xs flex items-center justify-center'
+                className='task-item-checkbox'
                 
             >
                 {task.type === TaskType.TASK ?
-                    <input type='checkbox' className='m-none'/>
+                    <input 
+                        type='checkbox' 
+                        className='m-none'
+                    />
                 :   
                     <div 
                         className='round bg-gray-darker w-xxs h-xxs'
@@ -43,28 +45,28 @@ function TaskListItem({ task, variant, dividerColor, showDivider = true }: TaskL
                     />
                 }
             </div>
-            
-            <span
-                className='flex border-box flex-grow'
-                style={{
-                    paddingBottom: '3px',
-                    color: variant === 'dark' ? '#000000' : '#ffffff'
-                }}
-            >
-                {task.name}
-            </span>
-            
-            {task.description ? 
-                <div 
-                    className='w-full text-s text-gray-darker'
+            <div className='task-item-info' onClick={handleTaskClick}>
+                <span
+                    className='flex border-box flex-grow'
                     style={{
-                        paddingLeft: '20px',
-                        color: variant === 'dark' ? '#000000' : '#b5b5b5'
+                        paddingBottom: '3px',
+                        color: variant === 'dark' ? '#000000' : '#ffffff'
                     }}
                 >
-                    {task.description}
-                </div>
-            : null}
+                    {task.name}
+                </span>
+                
+                {task.description ? 
+                    <div 
+                        className='w-full text-s text-gray-darker'
+                        style={{
+                            color: variant === 'dark' ? '#000000' : '#b5b5b5'
+                        }}
+                    >
+                        {task.description}
+                    </div>
+                : null}
+            </div>
         </div>
     )
 }
