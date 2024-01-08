@@ -1,5 +1,5 @@
 //Core
-import { useContext, useMemo } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup';
 
@@ -18,6 +18,7 @@ import ColorInput from 'components/input/ColorInput'
 import useTaskGroups from 'functions/useTaskGroups'
 import usePage from 'functions/usePage';
 import SettingsContext from 'state/SettingsContext';
+import { FormikProps } from 'formik';
 
 //Form values type
 type FormValues = {
@@ -87,7 +88,7 @@ type RouteState = {
  */
 export default function TaskGroupEditPage() {
 
-    //Hooks
+    // Hooks
     const { state }: { state: RouteState } = useLocation();
     const navigate = useNavigate();
     const { 
@@ -99,12 +100,39 @@ export default function TaskGroupEditPage() {
     const { pageState } = usePage();
     const {settings} = useContext(SettingsContext)
 
+    // State
     const task_group = useMemo(() => {
         if (state?.id != null && state?.id !== undefined) {
             return getTaskGroupById(state.id)
         }
         return null
     }, [state?.id])
+
+    //Initial values of form
+    const initialValues: FormValues = useMemo(() => {
+        //If ID param passed, use values from the task group with such ID
+        if (state?.id != null && state?.id !== undefined) {
+            const task_group: TaskGroup = getTaskGroupById(state.id)
+
+            return {
+                name: task_group.name,
+                time: timeToStr(task_group.time),
+                color: task_group.color //#TODO: Replace with actual color
+            }
+        }
+
+        //Otherwise use default values
+        //#TODO: Add default values to defaults.ts and use those here
+        return {
+            name: '',
+            time: '',
+            color: settings.default_task_group_color
+        }
+    /* eslint-disable */
+    }, [getTaskGroupById])
+    /*eslint-enable */
+
+    const [headerColor, setHeaderColor] = useState<string>(initialValues.color)
 
     //Handle submit of form
     const handleSubmit = (values: FormValues) => {
@@ -139,29 +167,9 @@ export default function TaskGroupEditPage() {
         navigate('/')
     }
 
-    //Initial values of form
-    const initialValues: FormValues = useMemo(() => {
-        //If ID param passed, use values from the task group with such ID
-        if (state?.id != null && state?.id !== undefined) {
-            const task_group: TaskGroup = getTaskGroupById(state.id)
-
-            return {
-                name: task_group.name,
-                time: timeToStr(task_group.time),
-                color: task_group.color //#TODO: Replace with actual color
-            }
-        }
-
-        //Otherwise use default values
-        //#TODO: Add default values to defaults.ts and use those here
-        return {
-            name: '',
-            time: '',
-            color: settings.default_task_group_color
-        }
-    /* eslint-disable */
-    }, [getTaskGroupById])
-    /*eslint-enable */
+    const onFormUpdate = (formikProps: FormikProps<FormValues>) => {
+        setHeaderColor(formikProps.values.color)
+    }
 
     return (
         <FormPage<FormValues>
@@ -170,6 +178,8 @@ export default function TaskGroupEditPage() {
             initialValues={initialValues}
             onSubmit={handleSubmit}
             pageState={pageState}
+            headerColor={headerColor}
+            onFormUpdate={onFormUpdate}
         >
             {/* Group name field */}
             <TextInput

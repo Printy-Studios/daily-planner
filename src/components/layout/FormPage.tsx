@@ -1,6 +1,6 @@
 //Core
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react'
-import { Formik, Form, FormikValues, FormikHelpers } from 'formik'
+import { Formik, Form, FormikValues, FormikHelpers, FormikProps } from 'formik'
 import * as Yup from 'yup'
 
 //Components
@@ -14,6 +14,8 @@ type FormPageProps<FormValuesT extends FormikValues> = PageProps & {
     autoSave?: boolean
     initialValues: FormValuesT
     validationSchema?: Yup.ObjectSchema<FormValuesT>
+    headerColor?: string
+    onFormUpdate?: (formikProps: FormikProps<FormValuesT>) => void
     onSubmit: (values: FormValuesT) => void
 }
 
@@ -24,6 +26,8 @@ export default function FormPage<FormValuesT extends FormikValues>( {
     initialValues,
     validationSchema = undefined,
     pageState,
+    headerColor,
+    onFormUpdate = () => {},
     onSubmit = () => {}
 }: PropsWithChildren<FormPageProps<FormValuesT>>) {
 
@@ -35,7 +39,6 @@ export default function FormPage<FormValuesT extends FormikValues>( {
     const [isModified, setIsModified] = useState<boolean>(false);
     const [isValid, setIsValid] = useState<boolean>(false);
     const [isSaving, setIsSaving] = useState<boolean>(false);
-
 
     return (
         <Page
@@ -56,6 +59,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                 </Button>
                 // <button form={id} type='submit'>Save</button>
             }
+            headerColor={headerColor}
             pageState={pageState}
         >
             <Formik
@@ -68,6 +72,7 @@ export default function FormPage<FormValuesT extends FormikValues>( {
                     setIsModified(props.dirty)
                     setIsValid(props.isValid)
                     setIsSaving(props.isSubmitting)
+                    onFormUpdate(props);
                     return (
                         <Form
                             id={id}
