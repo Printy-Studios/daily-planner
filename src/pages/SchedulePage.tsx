@@ -47,7 +47,6 @@ export default function SchedulePage(){
             }
             pageState={pageState}
         >
-            Test
             {/* Day Selector */}
             <DaySelector
                 value={selectedDate}
